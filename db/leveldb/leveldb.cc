@@ -5,6 +5,7 @@ using namespace kv_benchmark;
 LevelDB::LevelDB(kv_benchmark::Options& options)
 {
     leveldb::Options _options;
+    _options.create_if_missing = true;
     leveldb::DB::Open(_options, options.db_path, &db_);
     assert(db_ != nullptr);
 }
