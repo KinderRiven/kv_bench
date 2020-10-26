@@ -7,7 +7,7 @@ all: leveldb rocksdb novelsm
 leveldb:
 	g++ -std=c++11 -I../include $(SRC_LEVELDB) test.cc -o leveldb_tester -L../third-party/leveldb -lleveldb -lpthread -lsnappy
 
-leveldb:
+novelsm:
 	g++ -std=c++11 -I../include $(SRC_NOVELSM) test.cc -o novelsm_tester -L../third-party/novelsm -lleveldb -lpthread -lsnappy -lnuma
 
 rocksdb:
