@@ -1,4 +1,5 @@
 #include "db.h"
+#include "options.h"
 
 using namespace kv_benchmark;
 

@@ -7,8 +7,6 @@ public:
     Options();
 
     ~Options();
-
-public:
 };
 }
 
