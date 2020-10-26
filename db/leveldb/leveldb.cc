@@ -5,7 +5,7 @@ using namespace kv_benchmark;
 LevelDB::LevelDB(kv_benchmark::Options& options)
 {
     leveldb::Options _options;
-    leveldb::DB::Open(_options, "", &db_);
+    leveldb::DB::Open(_options, options.db_path, &db_);
 }
 
 LevelDB::~LevelDB()

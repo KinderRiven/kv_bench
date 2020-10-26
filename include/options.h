@@ -9,7 +9,9 @@ public:
 
         };
 
-    ~Options(){};
+    ~Options(){
+
+    };
 
 public:
     std::string db_path;
