@@ -11,11 +11,11 @@ int main(int argc, char** argv)
     DB::Open(_options, &_db);
 
     char _key[128];
-    char _value[256];
+    char _value[4096];
     size_t _key_length = 16;
-    size_t _value_length = 128;
+    size_t _value_length = 1024;
 
-    for (int i = 0; i < 100000; i++) {
+    for (int i = 0; i < 1000000; i++) {
         sprintf(_key, "%llu", i);
         sprintf(_value, "%llu", i);
         _db->Put(_key, _key_length, _value, _value_length);
