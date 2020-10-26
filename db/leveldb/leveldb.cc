@@ -7,6 +7,7 @@ LevelDB::LevelDB(kv_benchmark::Options& options)
     leveldb::Options _options;
     _options.create_if_missing = true;
     _options.block_size = 4096;
+    _options.compression = kNoCompression;
     _options.max_file_size = (64 * 1024 * 1024);
     _options.write_buffer_size = (64 * 1024 * 1024);
     leveldb::DB::Open(_options, options.db_path, &db_);
