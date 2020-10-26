@@ -3,7 +3,7 @@
 
 #include "db.h"
 #include "header.h"
-#include "novelsm/db.h"
+#include "leveldb/db.h"
 #include "options.h"
 
 namespace kv_benchmark {
