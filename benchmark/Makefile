@@ -8,7 +8,7 @@ leveldb:
 	g++ -std=c++11 -I../include $(SRC_LEVELDB) test.cc -o leveldb_tester -L../third-party/leveldb -lleveldb -lpthread -lsnappy
 
 leveldb:
-	g++ -std=c++11 -I../include $(SRC_NOVELSM) test.cc -o novelsm_tester -L../third-party/novelsm -lleveldb -lpthread -lsnappy
+	g++ -std=c++11 -I../include $(SRC_NOVELSM) test.cc -o novelsm_tester -L../third-party/novelsm -lleveldb -lpthread -lsnappy -lnuma
 
 rocksdb:
 	g++ -std=c++11 -I../include $(SRC_ROCKSDB) test.cc -o rocksdb_tester -L../third-party/rocksdb -lrocksdb -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
