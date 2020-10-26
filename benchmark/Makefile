@@ -1,8 +1,12 @@
 SRC_LEVELDB := -I../db/leveldb ../db/leveldb/leveldb.cc ../db/leveldb/db.cc
 SRC_ROCKSDB := -I../db/rocksdb ../db/rocksdb/rocksdb.cc ../db/rocksdb/db.cc
 SRC_NOVELSM := -I../db/novelsm ../db/novelsm/novelsm.cc ../db/novelsm/db.cc
+SRC_PEBBLESDB := -I../db/pebblesdb ../db/pebblesdb/pebblesdb.cc ../db/pebblesdb/db.cc
 
-all: leveldb rocksdb novelsm
+all: leveldb rocksdb novelsm pebblesdb
+
+pebblesdb:
+	g++ -std=c++11 -I../include $(SRC_PEBBLESDB) test.cc -o pebblesdb_tester -L../third-party/pebblesdb -lpebblesdb -lpthread -lsnappy
 
 leveldb:
 	g++ -std=c++11 -I../include $(SRC_LEVELDB) test.cc -o leveldb_tester -L../third-party/leveldb -lleveldb -lpthread -lsnappy
