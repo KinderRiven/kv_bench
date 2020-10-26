@@ -6,6 +6,7 @@ LevelDB::LevelDB(kv_benchmark::Options& options)
 {
     leveldb::Options _options;
     leveldb::DB::Open(_options, options.db_path, &db_);
+    assert(db_ != nullptr);
 }
 
 LevelDB::~LevelDB()
