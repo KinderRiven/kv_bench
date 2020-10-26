@@ -4,9 +4,15 @@
 namespace kv_benchmark {
 class Options {
 public:
-    Options();
+    Options()
+        : db_path("dbdir"){
 
-    ~Options();
+        };
+
+    ~Options(){};
+
+public:
+    std::string db_path;
 };
 }
 
