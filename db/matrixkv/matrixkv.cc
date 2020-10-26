@@ -10,9 +10,10 @@ MatrixKV::MatrixKV(kv_benchmark::Options& options)
 
     rocksdb::NvmSetup* _nvm_opt = new rocksdb::NvmSetup();
     _nvm_opt->pmem_path = "/home/pmem0";
+    _nvm_opt->use_nvm_module = true;
     _options.nvm_setup.reset(_nvm_opt);
-    rocksdb::DB::Open(_options, options.db_path, &db_);
 
+    rocksdb::DB::Open(_options, options.db_path, &db_);
     assert(db_ != nullptr);
 }
 
