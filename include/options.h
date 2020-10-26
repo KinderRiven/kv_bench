@@ -4,17 +4,14 @@
 namespace kv_benchmark {
 class Options {
 public:
-    Options()
-        : db_path("dbdir"){
+    Options() : db_path("dbdir"), nvm_path("/home/pmem0") {};
 
-        };
-
-    ~Options(){
-
-    };
+    ~Options(){};
 
 public:
     std::string db_path;
+
+    std::string nvm_path;
 };
 }
 
