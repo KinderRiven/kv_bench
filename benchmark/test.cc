@@ -12,13 +12,14 @@ int main(int argc, char** argv)
 
     char _key[128];
     char _value[256];
+    size_t _key_length = 16;
+    size_t _value_length = 128;
 
     for (int i = 0; i < 100000; i++) {
         sprintf(_key, "%llu", i);
         sprintf(_value, "%llu", i);
-        _db->Put(_key, 16, _value, 128);
+        _db->Put(_key, _key_length, _value, _value_length);
     }
-
     DB::Close(_db);
     return 0;
 }
