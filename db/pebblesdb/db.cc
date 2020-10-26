@@ -1,11 +1,11 @@
 #include "db.h"
-#include "rocksdb.h"
+#include "pebblesdb.h"
 
 using namespace kv_benchmark;
 
 void DB::Open(Options& options, DB** dbptr)
 {
-    *dbptr = new RocksDB(options);
+    *dbptr = new PebblesDB(options);
 }
 
 void DB::Close(DB* dbptr)
