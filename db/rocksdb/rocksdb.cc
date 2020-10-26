@@ -6,7 +6,7 @@ RocksDB::RocksDB(kv_benchmark::Options& options)
 {
     rocksdb::Options _options;
     _options.create_if_missing = true;
-    _options.compression = kNoCompression;
+    _options.compression = rocksdb::kNoCompression;
     rocksdb::DB::Open(_options, options.db_path, &db_);
     assert(db_ != nullptr);
 }
