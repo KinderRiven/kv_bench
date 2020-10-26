@@ -8,7 +8,7 @@ SRC_MATRIXKV := -I../db/matrixkv ../db/matrixkv/matrixkv.cc ../db/matrixkv/db.cc
 all: leveldb rocksdb novelsm pebblesdb matrixkv
 
 matrixkv:
-	g++ -std=c++11 -I../include $(SRC_MATRIXKV) test.cc -o matrixkv_tester -L../third-party/matrixkv -lrocksdb -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
+	g++ -std=c++11 -I../include $(SRC_MATRIXKV) test.cc -o matrixkv_tester -L../third-party/matrixkv -lrocksdb -lpmem -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
 
 pebblesdb:
 	g++ -std=c++11 -I../include $(SRC_PEBBLESDB) test.cc -o pebblesdb_tester -L../third-party/pebblesdb -lpebblesdb -lpthread -lsnappy
