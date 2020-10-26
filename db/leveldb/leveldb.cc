@@ -10,6 +10,7 @@ LevelDB::LevelDB(kv_benchmark::Options& options)
 
 LevelDB::~LevelDB()
 {
+    delete db_;
 }
 
 bool LevelDB::Put(char* key, size_t key_length, char* value, size_t value_length)
