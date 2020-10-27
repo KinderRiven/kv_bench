@@ -3,6 +3,8 @@
 #include "workload_generator.h"
 #include "header.h"
 
+using namespace kv_benchmark;
+
 static int g_numa[] = {
     10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39,
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29
@@ -32,7 +34,6 @@ static void result_output(const char* name, std::vector<uint64_t>& data)
             fout << data[i] << std::endl;
         }
         fout.close();
-        LOG(INFO) << "|- Detailed results have been output to the file : " << name;
     }
 }
 
@@ -47,11 +48,11 @@ static void thread_task(thread_param_t* param)
         printf("threadpool, set thread affinity failed.\n");
     }
 
-    kv_benchmark::DB* _db = param->db;
-    kv_benchmark::YCSB* _benchmark = param->benchmark;
+    DB* _db = param->db;
+    YCSB* _benchmark = param->benchmark;
 
     assert((_benchmark != nullptr) && (_db != nullptr));
-    benchmark->initlizate();
+    _benchmark->initlizate();
 
     int _count = param->count;
     int _result;
@@ -84,7 +85,7 @@ static void thread_task(thread_param_t* param)
     _t1.Stop();
 }
 
-WorkloadGenerator::WorkloadGenerator(struct generator_parameter* param, DB* db, YCSB* benchmark[])
+WorkloadGenerator::WorkloadGenerator(struct generator_parameter* param, DB* db, YCSB* benchmarks[])
     : db_(db)
     , num_threads_(param->num_threads)
     , result_path_(param->result_path)

@@ -30,6 +30,5 @@ int main(int argc, char* argv[])
 
     kv_benchmark::DB::Open(_options, &_db);
     kv_benchmark::WorkloadGenerator *_wamrup = new kv_benchmark::WorkloadGenerator(nullptr, _db, _benchmarks);
-
     return 0;
 }
