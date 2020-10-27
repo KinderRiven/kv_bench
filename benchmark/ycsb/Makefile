@@ -5,7 +5,10 @@ SRC_PEBBLESDB := -I../../db/pebblesdb ../../db/pebblesdb/pebblesdb.cc ../../db/p
 SRC_MATRIXKV := -I../../db/matrixkv ../../db/matrixkv/matrixkv.cc ../../db/matrixkv/db.cc
 SRC_YCSB := main.cc workload_generator.cc workload_ycsb.c
 
-all: leveldb # rocksdb novelsm pebblesdb matrixkv
+all: leveldb rocksdb novelsm pebblesdb matrixkv
+
+detail:
+	g++ -std=c++11 detail.cc -o detail
 
 matrixkv:
 	g++ -std=c++11 -I../../include $(SRC_MATRIXKV) $(SRC_YCSB) -o matrixkv_tester -L../../third-party/matrixkv -lrocksdb -lpmem -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd

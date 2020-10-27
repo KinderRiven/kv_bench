@@ -16,7 +16,6 @@ static void result_output(const char* name, std::vector<uint64_t>& data)
         for (int i = 0; i < data.size(); i++) {
             fout << data[i] << std::endl;
         }
-
         fout.close();
     }
 }
@@ -118,7 +117,8 @@ int main(int argc, char* argv[])
 
     uint64_t interval;
 
-    if (argc < 2) {
+    if (argc < 3) {
+        printf("./detail [dir] [dist]\n");
         return -1;
     }
 
