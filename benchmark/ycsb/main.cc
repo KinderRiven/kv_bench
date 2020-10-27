@@ -6,6 +6,12 @@
 
 int main(int argc, char* argv[])
 {
+    time_t _t = time(NULL);
+    struct tm* _lt = localtime(&_t);
+    char _result_path[128];
+    sprintf(_result_path, "%04d%02d%02d_%02d%02d%02d", _lt->tm_year, _lt->tm_mon, _lt->tm_mday, _lt->tm_hour, _lt->tm_min, _lt->tm_sec);
+    mkdir(_result_path, 0777);
+
     // DB opation
     char _ssd_path[128] = "/home/hanshukai/dir1";
     char _pmem_path[128] = "/home/pmem0";
@@ -57,6 +63,7 @@ int main(int argc, char* argv[])
     _gparam.value_length = _value_length;
     _gparam.num_threads = _num_thread;
     _gparam.data_size = _data_size;
+    _gparam.result_path.assign(_result_path);
 
     kv_benchmark::WorkloadGenerator* _warmup = new kv_benchmark::WorkloadGenerator(&_gparam, _db, _benchmarks);
     _warmup->Run();

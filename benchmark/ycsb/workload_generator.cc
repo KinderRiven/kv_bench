@@ -20,6 +20,7 @@ public:
     int count;
 
 public: // result
+    uint64_t sum_latency;
     uint64_t result_count[16];
     uint64_t result_latency[16];
     uint64_t result_success[16];
@@ -29,6 +30,7 @@ public:
 
 public:
     thread_param_t()
+        : sum_latency(0)
     {
         memset(result_count, 0, sizeof(result_count));
         memset(result_latency, 0, sizeof(result_latency));
@@ -78,20 +80,25 @@ static void thread_task(thread_param_t* param)
     for (int i = 0; i < _count; i++) {
         int __type = _benchmark->get_kv_pair(_key, _key_length, _value, _value_length);
         _t2.Start();
-
         if (__type == YCSB_PUT) {
+            // TODO
+            // DB::PUT()
             _result = _db->Put(_key, _key_length, _value, _value_length);
             param->result_count[__type]++;
             if (_result) {
                 param->result_success[__type]++;
             }
         } else if (__type == YCSB_UPDATE) {
+            // TODO
+            // DB::UPDATE()
             _result = _db->Put(_key, _key_length, _value, _value_length);
             param->result_count[__type]++;
             if (_result) {
                 param->result_success[__type]++;
             }
         } else if (__type == YCSB_GET) {
+            // TODO
+            // DB::GET()
             _result = _db->Get(_key, _key_length, _value, _value_length);
             param->result_count[__type]++;
             if (_result) {
@@ -110,6 +117,7 @@ static void thread_task(thread_param_t* param)
         _t2.Stop();
         _latency = _t2.Get();
         param->result_latency[__type] += _latency;
+        param->sum_latency += _latency;
         param->vec_latency[__type].push_back(_latency);
     }
     _t1.Stop();
@@ -129,6 +137,9 @@ WorkloadGenerator::WorkloadGenerator(struct generator_parameter* param, DB* db, 
     }
 }
 
+static char _g_wname[YCSB_NUM_OPT_TYPE][32] = { "PUT", "UPDATE", "GET", "DELETE", "SCAN", "RMW" };
+static char _g_oname[YCSB_NUM_WORKLOAD_TYPE][32] = { "A", "B", "C", "D", "E", "F", "SEQ", "RANDOM"};
+
 void WorkloadGenerator::Run()
 {
     std::thread _threads[32];
@@ -145,5 +156,15 @@ void WorkloadGenerator::Run()
 
     for (int i = 0; i < num_threads_; i++) {
         _threads[i].join();
+    }
+
+    for (int i = 0; i < num_threads_; i++) {
+        for (int j = 0; j < YCSB_NUM_OPT_TYPE; j++) {
+            if (_params[i].vec_latency[j].size() > 0) {
+                char __name[128];
+                sprintf(__name, "%s/%s_%s", result_path_.c_str(), _g_wname[benchmarks_[i]->type_], _g_oname[j]);
+                result_output(__name, _params[i].vec_latency[j]);
+            }
+        }
     }
 }

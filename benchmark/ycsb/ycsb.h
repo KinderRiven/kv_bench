@@ -22,6 +22,7 @@
 #define YCSB_RMW (5)
 
 #define YCSB_ZIPFAN (1)
+#define YCSB_NUM_WORKLOAD_TYPE (8)
 // YCSB-A: 50% updates, 50% reads
 #define YCSB_A (0 << 1)
 // YCSB-B: 5% updates, 95% reads
@@ -38,8 +39,6 @@
 #define YCSB_RANDOM_LOAD (6 << 1)
 // SEQ load
 #define YCSB_SEQ_LOAD (7 << 1)
-// 100% write
-#define YCSB_ONLY_WRITE (8 << 1)
 
 namespace kv_benchmark {
 // Only Support Single Thread
@@ -88,8 +87,6 @@ private:
             return YCSB_PUT;
         case YCSB_RANDOM_LOAD:
             return YCSB_PUT;
-        case YCSB_ONLY_WRITE:
-            return YCSB_UPDATE;
         case YCSB_A:
             return (random >= 50) ? YCSB_UPDATE : YCSB_GET;
         case YCSB_B:
