@@ -162,7 +162,7 @@ void WorkloadGenerator::Run()
         for (int j = 0; j < YCSB_NUM_OPT_TYPE; j++) {
             if (_params[i].vec_latency[j].size() > 0) {
                 char __name[128];
-                sprintf(__name, "%s/%s_%s", result_path_.c_str(), _g_wname[benchmarks_[i]->type_], _g_oname[j]);
+                sprintf(__name, "%s/%s_%s", result_path_.c_str(), _g_wname[benchmarks_[i]->type_ >> 1], _g_oname[j]);
                 result_output(__name, _params[i].vec_latency[j]);
             }
         }
