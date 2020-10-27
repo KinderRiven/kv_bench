@@ -44,14 +44,6 @@ int main(int argc, char* argv[])
     _options.db_path.assign(_ssd_path);
     kv_benchmark::DB::Open(_options, &_db);
 
-    uint64_t _key_base = 1;
-    kv_benchmark::YCSB* _benchmarks[32];
-    size_t _range = _data_size / (_num_thread * _value_length);
-    for (int i = 0; i < _num_thread; i++) {
-        _benchmarks[i] = new kv_benchmark::YCSB(YCSB_SEQ_LOAD, _key_base, _range, _key_length, _value_length);
-        _key_base += _range;
-    }
-
     kv_benchmark::generator_parameter _gparam;
     _gparam.key_length = _key_length;
     _gparam.value_length = _value_length;
@@ -66,7 +58,35 @@ int main(int argc, char* argv[])
     mkdir(_result_path, 0777);
     _gparam.result_path.assign(_result_path);
 
+    // SEQ WARMUP
+    uint64_t _key_base = 1;
+    kv_benchmark::YCSB* _benchmarks[32];
+    size_t _range = _data_size / (_num_thread * _value_length);
+    for (int i = 0; i < _num_thread; i++) {
+        _benchmarks[i] = new kv_benchmark::YCSB(YCSB_SEQ_LOAD, _key_base, _range, _key_length, _value_length);
+        _key_base += _range;
+    }
     kv_benchmark::WorkloadGenerator* _warmup = new kv_benchmark::WorkloadGenerator(&_gparam, _db, _benchmarks);
+    _warmup->Run();
+
+    // YCSB-A
+    _key_base = 1;
+    _range = _data_size / (_num_thread * _value_length);
+    for (int i = 0; i < _num_thread; i++) {
+        _benchmarks[i] = new kv_benchmark::YCSB(YCSB_A, _key_base, _range, _key_length, _value_length);
+        _key_base += _range;
+    }
+    _warmup = new kv_benchmark::WorkloadGenerator(&_gparam, _db, _benchmarks);
+    _warmup->Run();
+
+    // YCSB-C
+    _key_base = 1;
+    _range = _data_size / (_num_thread * _value_length);
+    for (int i = 0; i < _num_thread; i++) {
+        _benchmarks[i] = new kv_benchmark::YCSB(YCSB_C, _key_base, _range, _key_length, _value_length);
+        _key_base += _range;
+    }
+    _warmup = new kv_benchmark::WorkloadGenerator(&_gparam, _db, _benchmarks);
     _warmup->Run();
     return 0;
 }
