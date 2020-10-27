@@ -43,7 +43,7 @@ static void thread_task(thread_param_t* param)
 
     cpu_set_t _mask;
     CPU_ZERO(&_mask);
-    CPU_SET(g_numa[thread_id], &_mask);
+    CPU_SET(g_numa[_thread_id], &_mask);
     if (pthread_setaffinity_np(pthread_self(), sizeof(_mask), &_mask) < 0) {
         printf("threadpool, set thread affinity failed.\n");
     }
