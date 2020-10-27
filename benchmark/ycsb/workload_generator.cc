@@ -113,7 +113,7 @@ static void thread_task(thread_param_t* param)
         param->vec_latency[__type].push_back(_latency);
     }
     _t1.Stop();
-    printf("*THREAD%02d FINISHED [TIME:%.2f]\n", _t1.GetSeconds());
+    printf("*THREAD%02d FINISHED [TIME:%.2f]\n", _thread_id, _t1.GetSeconds());
 }
 
 WorkloadGenerator::WorkloadGenerator(struct generator_parameter* param, DB* db, YCSB* benchmarks[])
@@ -121,6 +121,8 @@ WorkloadGenerator::WorkloadGenerator(struct generator_parameter* param, DB* db, 
     , num_threads_(param->num_threads)
     , result_path_(param->result_path)
     , data_size_(param->data_size)
+    , key_length_(param->key_length)
+    , value_length_(param->value_length)
 {
     for (int i = 0; i < num_threads_; i++) {
         benchmarks_[i] = benchmarks[i];
@@ -131,11 +133,13 @@ void WorkloadGenerator::Run()
 {
     std::thread _threads[32];
     thread_param_t _params[32];
+    uint64_t _count = data_size_ / (value_length_ * num_threads_);
 
     for (int i = 0; i < num_threads_; i++) {
         _params[i].thread_id = i;
         _params[i].benchmark = benchmarks_[i];
         _params[i].db = db_;
+        _params[i].count = _count;
         _threads[i] = std::thread(thread_task, &_params[i]);
     }
 

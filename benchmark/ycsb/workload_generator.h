@@ -43,6 +43,10 @@ private:
 
     size_t data_size_;
 
+    size_t key_length_;
+
+    size_t value_length_;
+
     std::string result_path_;
 
     DB* db_;

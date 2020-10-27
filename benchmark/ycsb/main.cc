@@ -41,7 +41,8 @@ int main(int argc, char* argv[])
     _gparam.key_length = _key_length;
     _gparam.value_length = _value_length;
     _gparam.num_threads = _num_thread;
-    kv_benchmark::WorkloadGenerator *_warmup = new kv_benchmark::WorkloadGenerator(&_gparam, _db, _benchmarks);
+    _gparam.data_size = 1024 * 1024 * 1024;
+    kv_benchmark::WorkloadGenerator* _warmup = new kv_benchmark::WorkloadGenerator(&_gparam, _db, _benchmarks);
     _warmup->Run();
     return 0;
 }
