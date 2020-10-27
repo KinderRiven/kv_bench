@@ -171,11 +171,11 @@ void WorkloadGenerator::Run()
         for (int j = 0; j < YCSB_NUM_OPT_TYPE; j++) {
             if (_params[i].vec_latency[j].size() > 0) {
                 char __name[128];
-                sprintf(__name, "%s/%s_%s", result_path_.c_str(), _g_wname[benchmarks_[i]->type_ >> 1], _g_oname[j]);
+                sprintf(__name, "%s/%s_%s.lat", result_path_.c_str(), _g_wname[benchmarks_[i]->type_ >> 1], _g_oname[j]);
                 result_output(__name, _params[i].vec_latency[j]);
-                __lat = 1.0 * _params[i].result_latency[j] / _params[i].result_count[j];
+                __lat = 1.0 * _params[i].result_latency[j] / (1000UL * _params[i].result_count[j]);
                 std::string __str = _g_oname[j];
-                _fout << "  [" << __str << "][lat:" << __lat << "][count:" << _params[i].result_count[j] << "|" << 1.0 * _params[i].result_count[j] / _params[i].count << "]" << std::endl;
+                _fout << "  [" << __str << "][lat:" << __lat << "][count:" << _params[i].result_count[j] << "|" << 100.0 * _params[i].result_count[j] / _params[i].count << "%%]" << std::endl;
             }
         }
     }
