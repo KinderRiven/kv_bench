@@ -33,7 +33,8 @@ int main(int argc, char* argv[])
         } else if (strncmp(argv[i], "--ssd=", 6) == 0) {
             strcpy(_ssd_path, argv[i] + 6);
         } else if (i > 0) {
-            return 0;
+            printf("+++ ERROR PARAMETER (%s)\n", argv[i]);
+            exit(1);
         }
     }
 
