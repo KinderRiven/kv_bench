@@ -175,7 +175,7 @@ void WorkloadGenerator::Run()
                 result_output(__name, _params[i].vec_latency[j]);
                 __lat = 1.0 * _params[i].result_latency[j] / (1000UL * _params[i].result_count[j]);
                 std::string __str = _g_oname[j];
-                _fout << "  [" << __str << "][lat:" << __lat << "][count:" << _params[i].result_count[j] << "|" << 100.0 * _params[i].result_count[j] / _params[i].count << "%%]" << std::endl;
+                _fout << "  [" << __str << "][lat:" << __lat << "][iops:" << 1000000.0 / __lat << "][count:" << _params[i].result_count[j] << "|" << 100.0 * _params[i].result_count[j] / _params[i].count << "%%]" << std::endl;
             }
         }
     }

@@ -141,7 +141,6 @@ int main(int argc, char* argv[])
             if ((0 == strcmp(cur_dir, dp->d_name)) || (0 == strcmp(up_dir, dp->d_name))) {
                 continue;
             }
-            printf("%s\n", dp->d_name);
             size_t __l = strlen(dp->d_name);
             if (memcmp(dp->d_name + (__l - 4), ".lat", 4) == 0) {
                 sprintf(dir_name, "%s/%s", dir, dp->d_name);
