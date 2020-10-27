@@ -158,13 +158,26 @@ void WorkloadGenerator::Run()
         _threads[i].join();
     }
 
+    char _result_file[128];
+    sprintf(_result_file, "%s/%s.result", result_path_.c_str(), _g_wname[benchmarks_[i]->type_ >> 1]);
+    std::ofstream _fout(_result_file);
+
     for (int i = 0; i < num_threads_; i++) {
+        double __lat = 1.0 * _params[i].sum_latency / (1000UL * _params[i].count);
+        _fout << ">>thread" << i << std::endl;
+        _fout << "  [0] count:" << _params[i].count << "]" << std::endl;
+        _fout << "  [1] lat:" << __lat << "us" << std::endl;
+        _fout << "  [2] iops:" << 1000000.0 / __lat << std::endl;
         for (int j = 0; j < YCSB_NUM_OPT_TYPE; j++) {
             if (_params[i].vec_latency[j].size() > 0) {
                 char __name[128];
                 sprintf(__name, "%s/%s_%s", result_path_.c_str(), _g_wname[benchmarks_[i]->type_ >> 1], _g_oname[j]);
                 result_output(__name, _params[i].vec_latency[j]);
+                __lat = 1.0 * _params[i].result_latency[j] / _params[i].result_count[j];
+                std::string __str = _g_oname[j];
+                _fout << "  [" << __str << "][lat:" << __lat << "][count:" << _params[i].result_count[j] << "|" << 1.0 * _params[i].result_count[j] / _params[i].count << "]" << std::endl;
             }
         }
     }
+    _fout.close();
 }
