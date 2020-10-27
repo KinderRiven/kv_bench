@@ -113,7 +113,7 @@ static void thread_task(thread_param_t* param)
         param->vec_latency[__type].push_back(_latency);
     }
     _t1.Stop();
-    printf("*THREAD%02d FINISHED [TIME:%.2f]\n", _thread_id, _t1.GetSeconds());
+    printf("*** THREAD%02d FINISHED [TIME:%.2f]\n", _thread_id, _t1.GetSeconds());
 }
 
 WorkloadGenerator::WorkloadGenerator(struct generator_parameter* param, DB* db, YCSB* benchmarks[])
