@@ -5,7 +5,7 @@ SRC_PEBBLESDB := -I../../db/pebblesdb ../../db/pebblesdb/pebblesdb.cc ../../db/p
 SRC_MATRIXKV := -I../../db/matrixkv ../../db/matrixkv/matrixkv.cc ../../db/matrixkv/db.cc
 SRC_YCSB := main.cc workload_generator.cc workload_ycsb.c
 
-all: leveldb rocksdb novelsm pebblesdb matrixkv
+all: leveldb rocksdb novelsm pebblesdb matrixkv detail
 
 detail:
 	g++ -std=c++11 detail.cc -o detail
