@@ -137,8 +137,8 @@ WorkloadGenerator::WorkloadGenerator(struct generator_parameter* param, DB* db, 
     }
 }
 
-static char _g_wname[YCSB_NUM_OPT_TYPE][32] = { "PUT", "UPDATE", "GET", "DELETE", "SCAN", "RMW" };
-static char _g_oname[YCSB_NUM_WORKLOAD_TYPE][32] = { "A", "B", "C", "D", "E", "F", "SEQ", "RANDOM"};
+static char _g_oname[YCSB_NUM_OPT_TYPE][32] = { "PUT", "UPDATE", "GET", "DELETE", "SCAN", "RMW" };
+static char _g_wname[YCSB_NUM_WORKLOAD_TYPE][32] = { "A", "B", "C", "D", "E", "F", "SEQ", "RANDOM" };
 
 void WorkloadGenerator::Run()
 {
