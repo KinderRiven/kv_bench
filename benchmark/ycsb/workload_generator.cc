@@ -159,7 +159,7 @@ void WorkloadGenerator::Run()
     }
 
     char _result_file[128];
-    sprintf(_result_file, "%s/%s.result", result_path_.c_str(), _g_wname[benchmarks_[i]->type_ >> 1]);
+    sprintf(_result_file, "%s/%s.result", result_path_.c_str(), _g_wname[benchmarks_[0]->type_ >> 1]);
     std::ofstream _fout(_result_file);
 
     for (int i = 0; i < num_threads_; i++) {
