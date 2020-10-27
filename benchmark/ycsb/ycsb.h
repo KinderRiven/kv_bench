@@ -13,6 +13,7 @@
 #define YCSB_KEY_LENGTH (8)
 #define YCSB_VALUE_LENGTH (4096)
 
+#define YCSB_NUM_OPT_TYPE (6)
 #define YCSB_PUT (0)
 #define YCSB_UPDATE (1)
 #define YCSB_GET (2)

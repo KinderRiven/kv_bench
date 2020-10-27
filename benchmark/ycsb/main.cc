@@ -4,7 +4,6 @@
 #include "workload_generator.h"
 #include "ycsb.h"
 
-
 int main(int argc, char* argv[])
 {
     kv_benchmark::DB* _db;
@@ -14,6 +13,11 @@ int main(int argc, char* argv[])
     // DB opation
     char _ssd_path[128] = "/home/hanshukai/dir1";
     char _pmem_path[128] = "/home/pmem0";
+
+    // Workload Parameter
+    int _num_thread = 1;
+    size_t _key_length = 16;
+    size_t _value_length = 1000;
 
     // workload generator
     for (int i = 0; i < argc; i++) {
@@ -28,7 +32,16 @@ int main(int argc, char* argv[])
         }
     }
 
+    for (int i = 0; i < _num_thread; i++) {
+        _benchmarks[i] = new kv_benchmark::YCSB(YCSB_SEQ_LOAD, 1, 1000000, 16, 1024);
+    }
+
     kv_benchmark::DB::Open(_options, &_db);
-    kv_benchmark::WorkloadGenerator *_wamrup = new kv_benchmark::WorkloadGenerator(nullptr, _db, _benchmarks);
+    kv_benchmark::generator_parameter _gparam;
+    _gparam.key_length = _key_length;
+    _gparam.value_length = _value_length;
+    _gparam.num_threads = _num_thread;
+    kv_benchmark::WorkloadGenerator *_warmup = new kv_benchmark::WorkloadGenerator(&_gparam, _db, _benchmarks);
+    _warmup->Run();
     return 0;
 }
