@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
             strcpy(_pmem_path, argv[i] + 6);
         } else if (strncmp(argv[i], "--ssd=", 6) == 0) {
             strcpy(_ssd_path, argv[i] + 6);
-        } else {
+        } else if (i > 0) {
             return 0;
         }
     }
