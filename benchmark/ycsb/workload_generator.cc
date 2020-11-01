@@ -124,7 +124,7 @@ static void thread_task(thread_param_t* param)
     printf("*** THREAD%02d FINISHED [TIME:%.2f]\n", _thread_id, _t1.GetSeconds());
 }
 
-WorkloadGenerator::WorkloadGenerator(struct generator_parameter* param, DB* db, YCSB* benchmarks[])
+WorkloadGenerator::WorkloadGenerator(const char *name, struct generator_parameter* param, DB* db, YCSB* benchmarks[])
     : db_(db)
     , num_threads_(param->num_threads)
     , result_path_(param->result_path)
@@ -132,6 +132,8 @@ WorkloadGenerator::WorkloadGenerator(struct generator_parameter* param, DB* db, 
     , key_length_(param->key_length)
     , value_length_(param->value_length)
 {
+    strcpy(name_, name);
+
     for (int i = 0; i < num_threads_; i++) {
         benchmarks_[i] = benchmarks[i];
     }
@@ -159,7 +161,7 @@ void WorkloadGenerator::Run()
     }
 
     char _result_file[128];
-    sprintf(_result_file, "%s/%s.result", result_path_.c_str(), _g_wname[benchmarks_[0]->type_ >> 1]);
+    sprintf(_result_file, "%s/%s.result", result_path_.c_str(), name_);
     std::ofstream _fout(_result_file);
 
     for (int i = 0; i < num_threads_; i++) {
@@ -171,7 +173,7 @@ void WorkloadGenerator::Run()
         for (int j = 0; j < YCSB_NUM_OPT_TYPE; j++) {
             if (_params[i].vec_latency[j].size() > 0) {
                 char __name[128];
-                sprintf(__name, "%s/%s_%s.lat", result_path_.c_str(), _g_wname[benchmarks_[i]->type_ >> 1], _g_oname[j]);
+                sprintf(__name, "%s/%s_%s.lat", result_path_.c_str(), name_, _g_oname[j]);
                 result_output(__name, _params[i].vec_latency[j]);
                 __lat = 1.0 * _params[i].result_latency[j] / (1000UL * _params[i].result_count[j]);
                 std::string __str = _g_oname[j];

@@ -66,7 +66,7 @@ int main(int argc, char* argv[])
         _benchmarks[i] = new kv_benchmark::YCSB(YCSB_SEQ_LOAD, _key_base, _range, _key_length, _value_length);
         _key_base += _range;
     }
-    kv_benchmark::WorkloadGenerator* _warmup = new kv_benchmark::WorkloadGenerator(&_gparam, _db, _benchmarks);
+    kv_benchmark::WorkloadGenerator* _warmup = new kv_benchmark::WorkloadGenerator("SEQ_WARMUP", &_gparam, _db, _benchmarks);
     _warmup->Run();
 
     // YCSB-A
@@ -76,17 +76,27 @@ int main(int argc, char* argv[])
         _benchmarks[i] = new kv_benchmark::YCSB(YCSB_A, _key_base, _range, _key_length, _value_length);
         _key_base += _range;
     }
-    _warmup = new kv_benchmark::WorkloadGenerator(&_gparam, _db, _benchmarks);
+    _warmup = new kv_benchmark::WorkloadGenerator("YCSB_A", &_gparam, _db, _benchmarks);
     _warmup->Run();
 
-    // YCSB-C
+    // YCSB-C (0)
     _key_base = 1;
     _range = _data_size / (_num_thread * _value_length);
     for (int i = 0; i < _num_thread; i++) {
         _benchmarks[i] = new kv_benchmark::YCSB(YCSB_C, _key_base, _range, _key_length, _value_length);
         _key_base += _range;
     }
-    _warmup = new kv_benchmark::WorkloadGenerator(&_gparam, _db, _benchmarks);
+    _warmup = new kv_benchmark::WorkloadGenerator("YCSB_C-0", &_gparam, _db, _benchmarks);
+    _warmup->Run();
+
+    // YCSB-C (1)
+    _key_base = 1;
+    _range = _data_size / (_num_thread * _value_length);
+    for (int i = 0; i < _num_thread; i++) {
+        _benchmarks[i] = new kv_benchmark::YCSB(YCSB_C, _key_base, _range, _key_length, _value_length);
+        _key_base += _range;
+    }
+    _warmup = new kv_benchmark::WorkloadGenerator("YCSB_C-1", &_gparam, _db, _benchmarks);
     _warmup->Run();
     return 0;
 }

@@ -29,7 +29,7 @@ public:
 
 class WorkloadGenerator {
 public:
-    WorkloadGenerator(struct generator_parameter *param, DB *db, YCSB *benchmark[]);
+    WorkloadGenerator(const char *name, struct generator_parameter *param, DB *db, YCSB *benchmark[]);
 
 public:
     void Run();
@@ -50,6 +50,8 @@ private:
     std::string result_path_;
 
     DB* db_;
+
+    char name_[256];
 
     YCSB* benchmarks_[32];
 };
