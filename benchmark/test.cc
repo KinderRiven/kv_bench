@@ -10,16 +10,31 @@ int main(int argc, char** argv)
     Options _options;
     DB::Open(_options, &_db);
 
-    char _key[128];
-    char _value[4096];
+    bool _result;
+    char _key[128] = { 0 };
+    char _value[4096] = { 0 };
     size_t _key_length = 16;
     size_t _value_length = 1024;
+    uint64_t _cnt = 0;
 
     for (int i = 0; i < 1000000; i++) {
-        sprintf(_key, "%llu", i);
-        sprintf(_value, "%llu", i);
+        *(uint64_t*)_key = (uint64_t)i;
+        *(uint64_t*)_value = (uint64_t)i;
         _db->Put(_key, _key_length, _value, _value_length);
     }
+
+    for (int i = 0; i < 1000000; i++) {
+        *(uint64_t*)_key = (uint64_t)i;
+        *(uint64_t*)_value = 0;
+        _result = _db->Get(_key, _key_length, _value, _value_length);
+        if (_result) {
+            uint64_t __v = *((uint64_t*)_value);
+            assert(__v == i);
+            _cnt++;
+        }
+    }
+
+    printf("SUCCESS:%llu/%.2f%%\n", _cnt, 100.0 * _cnt / 1000000);
     DB::Close(_db);
     return 0;
 }
