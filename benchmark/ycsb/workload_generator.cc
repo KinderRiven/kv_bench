@@ -62,6 +62,7 @@ static void thread_task(thread_param_t* param)
 
     DB* _db = param->db;
     YCSB* _benchmark = param->benchmark;
+
     assert((_benchmark != nullptr) && (_db != nullptr));
     _benchmark->initlizate();
 
@@ -124,7 +125,7 @@ static void thread_task(thread_param_t* param)
     printf("*** THREAD%02d FINISHED [TIME:%.2f]\n", _thread_id, _t1.GetSeconds());
 }
 
-WorkloadGenerator::WorkloadGenerator(const char *name, struct generator_parameter* param, DB* db, YCSB* benchmarks[])
+WorkloadGenerator::WorkloadGenerator(const char* name, struct generator_parameter* param, DB* db, YCSB* benchmarks[])
     : db_(db)
     , num_threads_(param->num_threads)
     , result_path_(param->result_path)
@@ -177,7 +178,7 @@ void WorkloadGenerator::Run()
                 result_output(__name, _params[i].vec_latency[j]);
                 __lat = 1.0 * _params[i].result_latency[j] / (1000UL * _params[i].result_count[j]);
                 std::string __str = _g_oname[j];
-                _fout << "  [" << __str << "][lat:" << __lat << "][iops:" << 1000000.0 / __lat << "][count:" << _params[i].result_count[j] << "|" << 100.0 * _params[i].result_count[j] / _params[i].count << "%%]" << std::endl;
+                _fout << "  [" << __str << "][lat:" << __lat << "][iops:" << 1000000.0 / __lat << "][count:" << _params[i].result_count[j] << "|" << 100.0 * _params[i].result_count[j] / _params[i].count << "%%][success:" << _params[i].result_success[j] << "|" << 100.0 * _params[i].result_success[j] / _params[i].result_count[j] << "%%]" << std::endl;
             }
         }
     }
