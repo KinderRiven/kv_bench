@@ -40,6 +40,8 @@ bool NoveLSM::Get(char* key, size_t key_length, char* value, size_t& value_lengt
     leveldb::Slice _key(key, key_length);
     std::string _value;
     leveldb::Status _status = db_->Get(leveldb::ReadOptions(), _key, &_value);
+    value_length = _value.size();
+    memcpy(value, _value.data(), value_length);
     return (_status.ok() == true) ? true : false;
 }
 

@@ -37,6 +37,8 @@ bool RocksDB::Get(char* key, size_t key_length, char* value, size_t& value_lengt
     rocksdb::Slice _key(key, key_length);
     std::string _value;
     rocksdb::Status _status = db_->Get(rocksdb::ReadOptions(), _key, &_value);
+    value_length = _value.size();
+    memcpy(value, _value.data(), value_length);
     return (_status.ok() == true) ? true : false;
 }
 
