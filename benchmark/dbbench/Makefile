@@ -3,7 +3,7 @@ SRC_ROCKSDB := -I../../db/rocksdb ../../db/rocksdb/rocksdb.cc ../../db/rocksdb/d
 SRC_NOVELSM := -I../../db/novelsm ../../db/novelsm/novelsm.cc ../../db/novelsm/db.cc
 SRC_PEBBLESDB := -I../../db/pebblesdb ../../db/pebblesdb/pebblesdb.cc ../../db/pebblesdb/db.cc
 SRC_MATRIXKV := -I../../db/matrixkv ../../db/matrixkv/matrixkv.cc ../../db/matrixkv/db.cc
-SRC_YCSB := main.cc workload_generator.cc workload_ycsb.c
+SRC_YCSB := main.cc workload_generator.cc
 
 all: leveldb rocksdb novelsm pebblesdb matrixkv detail
 
