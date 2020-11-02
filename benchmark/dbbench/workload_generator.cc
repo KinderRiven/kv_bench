@@ -68,8 +68,8 @@ static void thread_task(thread_param_t* param)
     int _count = param->count;
     bool _result;
 
-    char _key[128];
-    char _value[65535];
+    char _key[128] = {0};
+    char _value[65535] = {0};
     size_t _key_length;
     size_t _value_length;
 
