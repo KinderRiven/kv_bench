@@ -33,6 +33,7 @@ static void start_workload(struct workload_options* options)
 
     kv_benchmark::generator_parameter _gparam;
     _gparam.key_length = options->key_length;
+    _gparam.record_detail = 1;
     _gparam.value_length = options->value_length;
     _gparam.num_threads = options->num_threads;
     _gparam.data_size = (options->workload_size / options->num_threads);
