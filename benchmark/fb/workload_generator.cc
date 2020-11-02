@@ -12,7 +12,7 @@ static int g_numa[] = {
 struct thread_param_t {
 public:
     kv_benchmark::DB* db;
-    kv_benchmark::DBBench* benchmark;
+    kv_benchmark::FBBench* benchmark;
 
 public:
     int thread_id;
