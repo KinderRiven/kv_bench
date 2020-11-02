@@ -99,22 +99,28 @@ int main(int argc, char* argv[])
     _wopt.dbsize = _dbsize;
     _wopt.db = _db;
     _wopt.result_path.assign(_result_path);
-    _wopt.workload_size = (size_t)(_psize * _dbsize);
 
     strcpy(_wopt.name, "WARMUP");
     _wopt.type = YCSB_SEQ_LOAD;
+    _wopt.workload_size = _dbsize;
     start_workload(&_wopt);
 
     strcpy(_wopt.name, "YCSB_A");
     _wopt.type = YCSB_A;
+    _wopt.workload_size = (size_t)(_psize * _dbsize);
+
     start_workload(&_wopt);
 
     strcpy(_wopt.name, "YCSB_C-0");
     _wopt.type = YCSB_C;
+    _wopt.workload_size = (size_t)(_psize * _dbsize);
+
     start_workload(&_wopt);
 
     strcpy(_wopt.name, "YCSB_C-1");
     _wopt.type = YCSB_C;
+    _wopt.workload_size = (size_t)(_psize * _dbsize);
+
     start_workload(&_wopt);
     return 0;
 }
