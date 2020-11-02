@@ -28,7 +28,9 @@ public:
         , key_length_(key_length)
         , value_length_(value_length)
     {
+        printf(">>[YCSB] CREATE A NEW YCSB BENCHMARK!\n");
         random_ = new Random(seed);
+        printf("  [TYPE:%d][SEED:%d][KV_LENGTH:%zu/%zu]\n", type_, seed, key_length_, value_length_);
     }
 
     ~DBBench()
