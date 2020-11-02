@@ -37,7 +37,7 @@ static void start_workload(struct workload_options* options)
     _gparam.num_threads = options->num_threads;
     _gparam.data_size = (options->workload_size / options->num_threads);
     _gparam.result_path = options->result_path;
-    
+
     kv_benchmark::WorkloadGenerator* _run = new kv_benchmark::WorkloadGenerator(options->name, &_gparam, options->db, _benchmarks);
     _run->Run();
 }
@@ -114,13 +114,11 @@ int main(int argc, char* argv[])
     strcpy(_wopt.name, "YCSB_C-0");
     _wopt.type = YCSB_C;
     _wopt.workload_size = (size_t)(_psize * _dbsize);
-
     start_workload(&_wopt);
 
     strcpy(_wopt.name, "YCSB_C-1");
     _wopt.type = YCSB_C;
     _wopt.workload_size = (size_t)(_psize * _dbsize);
-
     start_workload(&_wopt);
     return 0;
 }
