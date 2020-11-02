@@ -1,7 +1,6 @@
 #include "workload_generator.h"
 #include "header.h"
 #include "timer.h"
-#include "ycsb.h"
 
 using namespace kv_benchmark;
 
