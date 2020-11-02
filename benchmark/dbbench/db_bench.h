@@ -60,7 +60,7 @@ public:
     {
         generate_kv_pair((uint64_t)random_->Next(), key, value);
         key_length = key_length_;
-        value_length_ = value_length_;
+        value_length = value_length_;
         return random_get_put();
     }
 
