@@ -12,7 +12,7 @@ static int g_numa[] = {
 struct thread_param_t {
 public:
     kv_benchmark::DB* db;
-    kv_benchmark::YCSB* benchmark;
+    kv_benchmark::DBBench* benchmark;
 
 public:
     int thread_id;
@@ -80,7 +80,7 @@ static void thread_task(thread_param_t* param)
     for (int i = 0; i < _count; i++) {
         int __type = _benchmark->get_kv_pair(_key, _key_length, _value, _value_length);
         _t2.Start();
-        if (__type == YCSB_PUT) {
+        if (__type == DBBENCH_PUT) {
             // TODO
             // DB::PUT()
             _result = _db->Put(_key, _key_length, _value, _value_length);
@@ -88,15 +88,7 @@ static void thread_task(thread_param_t* param)
             if (_result) {
                 param->result_success[__type]++;
             }
-        } else if (__type == YCSB_UPDATE) {
-            // TODO
-            // DB::UPDATE()
-            _result = _db->Put(_key, _key_length, _value, _value_length);
-            param->result_count[__type]++;
-            if (_result) {
-                param->result_success[__type]++;
-            }
-        } else if (__type == YCSB_GET) {
+        } else if (__type == DBBENCH_GET) {
             // TODO
             // DB::GET()
             _result = _db->Get(_key, _key_length, _value, _value_length);
@@ -104,13 +96,10 @@ static void thread_task(thread_param_t* param)
             if (_result) {
                 param->result_success[__type]++;
             }
-        } else if (__type == YCSB_DELETE) {
+        } else if (__type == DBBENCH_DELETE) {
             // TODO
             // DB::DELETE
-        } else if (__type == YCSB_RMW) {
-            // TODO
-            // DB::Read&Update
-        } else if (__type == YCSB_SCAN) {
+        } else if (__type == DBBENCH_SCAN) {
             // TODO
             // DB::Scan
         }
@@ -124,7 +113,7 @@ static void thread_task(thread_param_t* param)
     printf("*** THREAD%02d FINISHED [TIME:%.2f]\n", _thread_id, _t1.GetSeconds());
 }
 
-WorkloadGenerator::WorkloadGenerator(const char* name, struct generator_parameter* param, DB* db, YCSB* benchmarks[])
+WorkloadGenerator::WorkloadGenerator(const char* name, struct generator_parameter* param, DB* db, DBBench* benchmarks[])
     : db_(db)
     , num_threads_(param->num_threads)
     , result_path_(param->result_path)
@@ -169,7 +158,7 @@ void WorkloadGenerator::Run()
         _fout << "  [0] count:" << _params[i].count << "]" << std::endl;
         _fout << "  [1] lat:" << __lat << "us" << std::endl;
         _fout << "  [2] iops:" << 1000000.0 / __lat << std::endl;
-        for (int j = 0; j < YCSB_NUM_OPT_TYPE; j++) {
+        for (int j = 0; j < DBBENCH_NUM_OPT_TYPE; j++) {
             if (_params[i].vec_latency[j].size() > 0) {
                 char __name[128];
                 sprintf(__name, "%s/%s_%s.lat", result_path_.c_str(), name_, _g_oname[j]);
