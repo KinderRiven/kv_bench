@@ -108,7 +108,6 @@ int main(int argc, char* argv[])
     strcpy(_wopt.name, "YCSB_A");
     _wopt.type = YCSB_A;
     _wopt.workload_size = (size_t)(_psize * _dbsize);
-
     start_workload(&_wopt);
 
     strcpy(_wopt.name, "YCSB_C-0");
