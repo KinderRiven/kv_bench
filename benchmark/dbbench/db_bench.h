@@ -12,7 +12,7 @@
 #define DBBENCH_KEY_LENGTH (8)
 #define DBBENCH_VALUE_LENGTH (4096)
 
-#define DBBENCH_NUM_OPT_TYPE (3)
+#define DBBENCH_NUM_OPT_TYPE (4)
 #define DBBENCH_PUT (0)
 #define DBBENCH_GET (1)
 #define DBBENCH_DELETE (2)
