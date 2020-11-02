@@ -1,0 +1,499 @@
+Use malloc to allocate : 0x7fa65237e010
+>>[Jallocator]
+  [Memory Usage]:0MB
+>>[PAllocator]
+  [Memory Usage]:2048MB
+  [0][0x7fa65237e010, 0x7fa6d237e010][1365MB/2048MB(66.67%)]
+>>[Level Hashing]
+  [ASSOC_NUM]: 4
+  [Bucket size]: 104B
+  [Memory usage]: 0MB
+  [Addr buckets]: 1024
+  [All buckets]: 1536
+  [All entries]: 6144
+  [Used/total slot]: 0/6144 (0.00%)
+  [Rehash]: 0
+  [flush/sfence]: 0/0
+>>[PLog]
+  [Memory Usage]:1365MB
+  [0][0x7fa6523a5100][align:0][0MB/1365MB(0.00%)]
+tid:378429 already done : 100000
+tid:378429 already done : 200000
+tid:378429 already done : 300000
+tid:378429 already done : 400000
+tid:378429 already done : 500000
+tid:378429 already done : 600000
+tid:378429 already done : 700000
+tid:378429 already done : 800000
+tid:378429 already done : 900000
+tid:378429 already done : 1000000
+tid:378429 already done : 1100000
+tid:378429 already done : 1200000
+tid:378429 already done : 1300000
+tid:378429 already done : 1400000
+tid:378429 already done : 1500000
+tid:378429 already done : 1600000
+tid:378429 already done : 1700000
+tid:378429 already done : 1800000
+tid:378429 already done : 1900000
+tid:378429 already done : 2000000
+tid:378429 already done : 2100000
+tid:378429 already done : 2200000
+tid:378429 already done : 2300000
+tid:378429 already done : 2400000
+tid:378429 already done : 2500000
+tid:378429 already done : 2600000
+tid:378429 already done : 2700000
+tid:378429 already done : 2800000
+tid:378429 already done : 2900000
+tid:378429 already done : 3000000
+tid:378429 already done : 3100000
+tid:378429 already done : 3200000
+tid:378429 already done : 3300000
+tid:378429 already done : 3400000
+tid:378429 already done : 3500000
+tid:378429 already done : 3600000
+tid:378429 already done : 3700000
+tid:378429 already done : 3800000
+tid:378429 already done : 3900000
+tid:378429 already done : 4000000
+tid:378429 already done : 4100000
+tid:378429 already done : 4200000
+tid:378429 already done : 4300000
+tid:378429 already done : 4400000
+tid:378429 already done : 4500000
+tid:378429 already done : 4600000
+tid:378429 already done : 4700000
+tid:378429 already done : 4800000
+tid:378429 already done : 4900000
+tid:378429 already done : 5000000
+tid:378429 already done : 5100000
+tid:378429 already done : 5200000
+tid:378429 already done : 5300000
+tid:378429 already done : 5400000
+tid:378429 already done : 5500000
+tid:378429 already done : 5600000
+tid:378429 already done : 5700000
+tid:378429 already done : 5800000
+tid:378429 already done : 5900000
+tid:378429 already done : 6000000
+tid:378429 already done : 6100000
+tid:378429 already done : 6200000
+tid:378429 already done : 6300000
+tid:378429 already done : 6400000
+tid:378429 already done : 6500000
+tid:378429 already done : 6600000
+tid:378429 already done : 6700000
+tid:378429 already done : 6800000
+tid:378429 already done : 6900000
+tid:378429 already done : 7000000
+tid:378429 already done : 7100000
+tid:378429 already done : 7200000
+tid:378429 already done : 7300000
+tid:378429 already done : 7400000
+tid:378429 already done : 7500000
+tid:378429 already done : 7600000
+tid:378429 already done : 7700000
+tid:378429 already done : 7800000
+tid:378429 already done : 7900000
+tid:378429 already done : 8000000
+tid:378429 already done : 8100000
+tid:378429 already done : 8200000
+tid:378429 already done : 8300000
+tid:378429 already done : 8400000
+tid:378429 already done : 8500000
+tid:378429 already done : 8600000
+tid:378429 already done : 8700000
+tid:378429 already done : 8800000
+tid:378429 already done : 8900000
+tid:378429 already done : 9000000
+tid:378429 already done : 9100000
+tid:378429 already done : 9200000
+tid:378429 already done : 9300000
+tid:378429 already done : 9400000
+tid:378429 already done : 9500000
+tid:378429 already done : 9600000
+tid:378429 already done : 9700000
+tid:378429 already done : 9800000
+tid:378429 already done : 9900000
+tid:378429 already done : 10000000
+tid:378429 already done : 10100000
+tid:378429 already done : 10200000
+tid:378429 already done : 10300000
+tid:378429 already done : 10400000
+tid:378429 already done : 10500000
+tid:378429 already done : 10600000
+tid:378429 already done : 10700000
+tid:378429 already done : 10800000
+tid:378429 already done : 10900000
+tid:378429 already done : 11000000
+tid:378429 already done : 11100000
+tid:378429 already done : 11200000
+tid:378429 already done : 11300000
+tid:378429 already done : 11400000
+tid:378429 already done : 11500000
+tid:378429 already done : 11600000
+tid:378429 already done : 11700000
+tid:378429 already done : 11800000
+tid:378429 already done : 11900000
+tid:378429 already done : 12000000
+tid:378429 already done : 12100000
+tid:378429 already done : 12200000
+tid:378429 already done : 12300000
+tid:378429 already done : 12400000
+tid:378429 already done : 12500000
+tid:378429 already done : 12600000
+tid:378429 already done : 12700000
+tid:378429 already done : 12800000
+tid:378429 already done : 12900000
+tid:378429 already done : 13000000
+tid:378429 already done : 13100000
+tid:378429 already done : 13200000
+tid:378429 already done : 13300000
+tid:378429 already done : 13400000
+tid:378429 already done : 13500000
+tid:378429 already done : 13600000
+tid:378429 already done : 13700000
+tid:378429 already done : 13800000
+tid:378429 already done : 13900000
+tid:378429 already done : 14000000
+tid:378429 already done : 14100000
+tid:378429 already done : 14200000
+tid:378429 already done : 14300000
+tid:378429 already done : 14400000
+tid:378429 already done : 14500000
+tid:378429 already done : 14600000
+tid:378429 already done : 14700000
+tid:378429 already done : 14800000
+tid:378429 already done : 14900000
+tid:378429 already done : 15000000
+tid:378429 already done : 15100000
+tid:378429 already done : 15200000
+tid:378429 already done : 15300000
+tid:378429 already done : 15400000
+tid:378429 already done : 15500000
+tid:378429 already done : 15600000
+tid:378429 already done : 15700000
+tid:378429 already done : 15800000
+tid:378429 already done : 15900000
+tid:378429 already done : 16000000
+tid:378429 already done : 16100000
+tid:378429 already done : 16200000
+tid:378429 already done : 16300000
+tid:378429 already done : 16400000
+tid:378429 already done : 16500000
+tid:378429 already done : 16600000
+tid:378429 already done : 16700000
+tid:378429 already done : 16800000
+tid:378429 already done : 16900000
+tid:378429 already done : 17000000
+tid:378429 already done : 17100000
+tid:378429 already done : 17200000
+tid:378429 already done : 17300000
+tid:378429 already done : 17400000
+tid:378429 already done : 17500000
+tid:378429 already done : 17600000
+tid:378429 already done : 17700000
+tid:378429 already done : 17800000
+tid:378429 already done : 17900000
+tid:378429 already done : 18000000
+tid:378429 already done : 18100000
+tid:378429 already done : 18200000
+tid:378429 already done : 18300000
+tid:378429 already done : 18400000
+tid:378429 already done : 18500000
+tid:378429 already done : 18600000
+tid:378429 already done : 18700000
+tid:378429 already done : 18800000
+tid:378429 already done : 18900000
+tid:378429 already done : 19000000
+tid:378429 already done : 19100000
+tid:378429 already done : 19200000
+tid:378429 already done : 19300000
+tid:378429 already done : 19400000
+tid:378429 already done : 19500000
+tid:378429 already done : 19600000
+tid:378429 already done : 19700000
+tid:378429 already done : 19800000
+tid:378429 already done : 19900000
+tid:378429 already done : 20000000
+tid:378429 already done : 20100000
+tid:378429 already done : 20200000
+tid:378429 already done : 20300000
+tid:378429 already done : 20400000
+tid:378429 already done : 20500000
+tid:378429 already done : 20600000
+tid:378429 already done : 20700000
+tid:378429 already done : 20800000
+tid:378429 already done : 20900000
+tid:378429 already done : 21000000
+tid:378429 already done : 21100000
+tid:378429 already done : 21200000
+tid:378429 already done : 21300000
+tid:378429 already done : 21400000
+tid:378429 already done : 21500000
+tid:378429 already done : 21600000
+tid:378429 already done : 21700000
+tid:378429 already done : 21800000
+tid:378429 already done : 21900000
+tid:378429 already done : 22000000
+tid:378429 already done : 22100000
+tid:378429 already done : 22200000
+tid:378429 already done : 22300000
+tid:378429 already done : 22400000
+tid:378429 already done : 22500000
+tid:378429 already done : 22600000
+tid:378429 already done : 22700000
+tid:378429 already done : 22800000
+tid:378429 already done : 22900000
+tid:378429 already done : 23000000
+tid:378429 already done : 23100000
+tid:378429 already done : 23200000
+tid:378429 already done : 23300000
+tid:378429 already done : 23400000
+tid:378429 already done : 23500000
+tid:378429 already done : 23600000
+tid:378429 already done : 23700000
+tid:378429 already done : 23800000
+tid:378429 already done : 23900000
+tid:378429 already done : 24000000
+tid:378429 already done : 24100000
+tid:378429 already done : 24200000
+tid:378429 already done : 24300000
+tid:378429 already done : 24400000
+tid:378429 already done : 24500000
+tid:378429 already done : 24600000
+tid:378429 already done : 24700000
+tid:378429 already done : 24800000
+tid:378429 already done : 24900000
+tid:378429 already done : 25000000
+tid:378429 already done : 25100000
+tid:378429 already done : 25200000
+tid:378429 already done : 25300000
+tid:378429 already done : 25400000
+tid:378429 already done : 25500000
+tid:378429 already done : 25600000
+tid:378429 already done : 25700000
+tid:378429 already done : 25800000
+tid:378429 already done : 25900000
+tid:378429 already done : 26000000
+tid:378429 already done : 26100000
+tid:378429 already done : 26200000
+tid:378429 already done : 26300000
+tid:378429 already done : 26400000
+tid:378429 already done : 26500000
+tid:378429 already done : 26600000
+tid:378429 already done : 26700000
+tid:378429 already done : 26800000
+tid:378429 already done : 26900000
+tid:378429 already done : 27000000
+tid:378429 already done : 27100000
+tid:378429 already done : 27200000
+tid:378429 already done : 27300000
+tid:378429 already done : 27400000
+tid:378429 already done : 27500000
+tid:378429 already done : 27600000
+tid:378429 already done : 27700000
+tid:378429 already done : 27800000
+tid:378429 already done : 27900000
+tid:378429 already done : 28000000
+tid:378429 already done : 28100000
+tid:378429 already done : 28200000
+tid:378429 already done : 28300000
+tid:378429 already done : 28400000
+tid:378429 already done : 28500000
+tid:378429 already done : 28600000
+tid:378429 already done : 28700000
+tid:378429 already done : 28800000
+tid:378429 already done : 28900000
+tid:378429 already done : 29000000
+tid:378429 already done : 29100000
+tid:378429 already done : 29200000
+tid:378429 already done : 29300000
+tid:378429 already done : 29400000
+tid:378429 already done : 29500000
+tid:378429 already done : 29600000
+tid:378429 already done : 29700000
+tid:378429 already done : 29800000
+tid:378429 already done : 29900000
+tid:378429 already done : 30000000
+tid:378429 already done : 30100000
+tid:378429 already done : 30200000
+tid:378429 already done : 30300000
+tid:378429 already done : 30400000
+tid:378429 already done : 30500000
+tid:378429 already done : 30600000
+tid:378429 already done : 30700000
+tid:378429 already done : 30800000
+tid:378429 already done : 30900000
+tid:378429 already done : 31000000
+tid:378429 already done : 31100000
+tid:378429 already done : 31200000
+tid:378429 already done : 31300000
+tid:378429 already done : 31400000
+tid:378429 already done : 31500000
+tid:378429 already done : 31600000
+tid:378429 already done : 31700000
+tid:378429 already done : 31800000
+tid:378429 already done : 31900000
+tid:378429 already done : 32000000
+tid:378429 already done : 32100000
+tid:378429 already done : 32200000
+tid:378429 already done : 32300000
+tid:378429 already done : 32400000
+tid:378429 already done : 32500000
+tid:378429 already done : 32600000
+tid:378429 already done : 32700000
+tid:378429 already done : 32800000
+tid:378429 already done : 32900000
+tid:378429 already done : 33000000
+tid:378429 already done : 33100000
+tid:378429 already done : 33200000
+tid:378429 already done : 33300000
+tid:378429 already done : 33400000
+tid:378429 already done : 33500000
+tid:378429 already done : 33600000
+tid:378429 already done : 33700000
+tid:378429 already done : 33800000
+tid:378429 already done : 33900000
+tid:378429 already done : 34000000
+tid:378429 already done : 34100000
+tid:378429 already done : 34200000
+tid:378429 already done : 34300000
+tid:378429 already done : 34400000
+tid:378429 already done : 34500000
+tid:378429 already done : 34600000
+tid:378429 already done : 34700000
+tid:378429 already done : 34800000
+tid:378429 already done : 34900000
+tid:378429 already done : 35000000
+tid:378429 already done : 35100000
+tid:378429 already done : 35200000
+tid:378429 already done : 35300000
+tid:378429 already done : 35400000
+tid:378429 already done : 35500000
+tid:378429 already done : 35600000
+tid:378429 already done : 35700000
+tid:378429 already done : 35800000
+tid:378429 already done : 35900000
+tid:378429 already done : 36000000
+tid:378429 already done : 36100000
+tid:378429 already done : 36200000
+tid:378429 already done : 36300000
+tid:378429 already done : 36400000
+tid:378429 already done : 36500000
+tid:378429 already done : 36600000
+tid:378429 already done : 36700000
+tid:378429 already done : 36800000
+tid:378429 already done : 36900000
+tid:378429 already done : 37000000
+tid:378429 already done : 37100000
+tid:378429 already done : 37200000
+tid:378429 already done : 37300000
+tid:378429 already done : 37400000
+tid:378429 already done : 37500000
+tid:378429 already done : 37600000
+tid:378429 already done : 37700000
+tid:378429 already done : 37800000
+tid:378429 already done : 37900000
+tid:378429 already done : 38000000
+tid:378429 already done : 38100000
+tid:378429 already done : 38200000
+tid:378429 already done : 38300000
+tid:378429 already done : 38400000
+tid:378429 already done : 38500000
+tid:378429 already done : 38600000
+tid:378429 already done : 38700000
+tid:378429 already done : 38800000
+tid:378429 already done : 38900000
+tid:378429 already done : 39000000
+tid:378429 already done : 39100000
+tid:378429 already done : 39200000
+tid:378429 already done : 39300000
+tid:378429 already done : 39400000
+tid:378429 already done : 39500000
+tid:378429 already done : 39600000
+tid:378429 already done : 39700000
+tid:378429 already done : 39800000
+tid:378429 already done : 39900000
+tid:378429 already done : 40000000
+tid:378429 already done : 40100000
+tid:378429 already done : 40200000
+tid:378429 already done : 40300000
+tid:378429 already done : 40400000
+tid:378429 already done : 40500000
+tid:378429 already done : 40600000
+tid:378429 already done : 40700000
+tid:378429 already done : 40800000
+tid:378429 already done : 40900000
+tid:378429 already done : 41000000
+tid:378429 already done : 41100000
+tid:378429 already done : 41200000
+tid:378429 already done : 41300000
+tid:378429 already done : 41400000
+tid:378429 already done : 41500000
+tid:378429 already done : 41600000
+tid:378429 already done : 41700000
+tid:378429 already done : 41800000
+tid:378429 already done : 41900000
+tid:378429 already done : 42000000
+Bench Name: MixGraph
+Total Key Numbers: 50000000
+Range Number: 30
+Key Size: 16 bytes each
+Total Queries: 42000000
+ReadSize: 4193.665MB
+WriteSize: 179.513MB
+TimePassed: 38.3162s
+------------------------------------Range Counters--------------------------------------------------------------
+			READ			WRITE			TOTAL			READ RATIO		WRITE RATIO		ITER RATIO
+range0		   53624 (0.150%)	    8982 (0.153%)	   63199 (0.150%)		84.849%			14.212%
+range1		  107163 (0.300%)	   17738 (0.302%)	  126110 (0.300%)		84.976%			14.065%
+range2		  160453 (0.449%)	   26439 (0.449%)	  188766 (0.449%)		85.001%			14.006%
+range3		   53769 (0.151%)	    8915 (0.152%)	   63309 (0.151%)		84.931%			14.082%
+range4		   53879 (0.151%)	    8857 (0.151%)	   63309 (0.151%)		85.105%			13.990%
+range5		   53162 (0.149%)	    8899 (0.151%)	   62683 (0.149%)		84.811%			14.197%
+range6		   53207 (0.149%)	    8866 (0.151%)	   62713 (0.149%)		84.842%			14.137%
+range7		  374065 (1.048%)	   61382 (1.044%)	  439788 (1.047%)		85.056%			13.957%
+range8		  106648 (0.299%)	   17564 (0.299%)	  125499 (0.299%)		84.979%			13.995%
+range9		  535174 (1.499%)	   88647 (1.507%)	  630012 (1.500%)		84.947%			14.071%
+range10		   53609 (0.150%)	    8760 (0.149%)	   62967 (0.150%)		85.138%			13.912%
+range11		  266445 (0.746%)	   44415 (0.755%)	  314009 (0.748%)		84.853%			14.144%
+range12		  213649 (0.598%)	   35235 (0.599%)	  251363 (0.598%)		84.996%			14.018%
+range13		  160405 (0.449%)	   26571 (0.452%)	  188881 (0.450%)		84.924%			14.068%
+range14		  322108 (0.902%)	   52836 (0.898%)	  378700 (0.902%)		85.056%			13.952%
+range15		  266160 (0.746%)	   44109 (0.750%)	  313434 (0.746%)		84.917%			14.073%
+range16		  428411 (1.200%)	   70409 (1.197%)	  503895 (1.200%)		85.020%			13.973%
+range17		  106475 (0.298%)	   17654 (0.300%)	  125333 (0.298%)		84.954%			14.086%
+range18		  214953 (0.602%)	   35221 (0.599%)	  252730 (0.602%)		85.052%			13.936%
+range19		  160407 (0.449%)	   26285 (0.447%)	  188584 (0.449%)		85.059%			13.938%
+range20		  266693 (0.747%)	   44276 (0.753%)	  314048 (0.748%)		84.921%			14.098%
+range21		   53534 (0.150%)	    8762 (0.149%)	   62936 (0.150%)		85.061%			13.922%
+range22		   53817 (0.151%)	    8851 (0.150%)	   63330 (0.151%)		84.979%			13.976%
+range23		 2032045 (5.692%)	  334622 (5.689%)	 2390676 (5.692%)		84.999%			13.997%
+range24		  160273 (0.449%)	   26517 (0.451%)	  188680 (0.449%)		84.944%			14.054%
+range25		  107219 (0.300%)	   17351 (0.295%)	  125802 (0.300%)		85.228%			13.792%
+range26		  106836 (0.299%)	   17661 (0.300%)	  125780 (0.299%)		84.939%			14.041%
+range27		  322426 (0.903%)	   52615 (0.894%)	  378902 (0.902%)		85.095%			13.886%
+range28		   53394 (0.150%)	    8753 (0.149%)	   62796 (0.150%)		85.028%			13.939%
+range29		28797432 (80.671%)	 4745091 (80.668%)	33881766 (80.671%)		84.994%			14.005%
+Total		35697435 (100.000%)	 5882283 (100.000%)	42000000 (100.000%)		84.994%			14.005%			1.001%
+----------------------------------------------------------------------------------------------------------------
+>>[Jallocator]
+  [Memory Usage]:0MB
+>>[PAllocator]
+  [Memory Usage]:2048MB
+  [0][0x7fa65237e010, 0x7fa6d237e010][1885MB/2048MB(92.05%)]
+>>[Level Hashing]
+  [ASSOC_NUM]: 4
+  [Bucket size]: 104B
+  [Memory usage]: 156MB
+  [Addr buckets]: 2097152
+  [All buckets]: 1572864
+  [All entries]: 6291456
+  [Used/total slot]: 2440988/6291456 (38.80%)
+  [Rehash]: 10
+  [flush/sfence]: 25612229/17922247
+>>[PLog]
+  [Memory Usage]:1365MB
+  [0][0x7fa6523a5100][align:0][1365MB/1365MB(100.00%)]
