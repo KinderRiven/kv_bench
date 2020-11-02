@@ -44,7 +44,6 @@ public:
 private:
     void generate_kv_pair(uint64_t uid, char* key, char* value)
     {
-        printf("%llu\n", uid);
         *((uint64_t*)key) = uid;
         *((uint64_t*)value) = uid;
     }
