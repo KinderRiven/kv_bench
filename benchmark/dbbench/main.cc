@@ -26,10 +26,10 @@ static void start_workload(struct workload_options* options)
     uint64_t _key_base = 1;
     kv_benchmark::DBBench* _benchmarks[32];
     size_t _range = (options->dbsize / options->value_length);
-    uint32_t _seed = 1578275;
+    uint32_t _seed = 1000;
 
     for (int i = 0; i < options->num_threads; i++) {
-        _benchmarks[i] = new kv_benchmark::DBBench(options->type, _seed + i * 1234567, options->key_length, options->value_length);
+        _benchmarks[i] = new kv_benchmark::DBBench(options->type, _seed + i, options->key_length, options->value_length);
     }
 
     kv_benchmark::generator_parameter _gparam;
