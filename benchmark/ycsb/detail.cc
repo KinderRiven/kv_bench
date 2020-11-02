@@ -9,12 +9,12 @@
 #include <unistd.h>
 #include <vector>
 
-static void result_output(const char* name, std::vector<uint64_t>& data)
+static void result_output(const char* name, std::vector<uint64_t>& data, uint64_t interval)
 {
     std::ofstream fout(name);
     if (fout.is_open()) {
         for (int i = 0; i < data.size(); i++) {
-            fout << data[i] << std::endl;
+            fout << (interval * i) << " " << data[i] << std::endl;
         }
         fout.close();
     }
@@ -58,7 +58,7 @@ static void tail_latency_handler(const char* name, std::vector<uint64_t>& vec_op
     }
 
     printf("  [%s] (%zu)\n", new_name, vec_tail_latency.size());
-    result_output(new_name, vec_tail_latency);
+    result_output(new_name, vec_tail_latency, interval);
 }
 
 static void get_avg_latency(std::vector<uint64_t>& vec_opt_latency)
