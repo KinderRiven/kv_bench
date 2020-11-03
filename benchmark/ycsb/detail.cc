@@ -44,15 +44,28 @@ static void tail_latency_handler(const char* name, std::vector<uint64_t>& vec_op
     std::vector<uint64_t> vec_tail_latency;
     std::vector<uint64_t> vec_tmp;
 
-    snprintf(new_name, sizeof(new_name), "%s_%.2fth", name, 100.0 * p);
+    if (p == 0) {
+        snprintf(new_name, sizeof(new_name), "%s_avg", name);
+    } else {
+        snprintf(new_name, sizeof(new_name), "%s_%.2fth", name, 100.0 * p);
+    }
     size = vec_opt_latency.size();
 
     for (size_t i = 0; i < size; i++) {
         vec_tmp.push_back(vec_opt_latency[i]);
         if (i % interval == 0) {
             sort(vec_tmp.begin(), vec_tmp.end());
-            idx = idx = (size_t)(1.0 * vec_tmp.size() * p);
-            vec_tail_latency.push_back(vec_tmp[idx]);
+            if (p == 0) {
+                double _avg = 0;
+                for (size_t j = 0; j < vec_tmp.size(); j++) {
+                    _avg += vec_tmp[j];
+                }
+                _avg /= vec_tmp.size();
+                vec_tail_latency.push_back(_avg);
+            } else {
+                idx = idx = (size_t)(1.0 * vec_tmp.size() * p);
+                vec_tail_latency.push_back(vec_tmp[idx]);
+            }
             vec_tmp.clear();
         }
     }
@@ -90,6 +103,7 @@ static void detail_handler(const char* name, int interval)
     read_from_file(name, vec_opt_latency);
     printf(">>[Handler] Reading opterator latency from [%s] (%zu).\n", name, vec_opt_latency.size());
 
+    tail_latency_handler(name, vec_opt_latency, 0, interval); // average
     tail_latency_handler(name, vec_opt_latency, 0.99, interval);
     tail_latency_handler(name, vec_opt_latency, 0.999, interval);
     tail_latency_handler(name, vec_opt_latency, 0.9999, interval);
