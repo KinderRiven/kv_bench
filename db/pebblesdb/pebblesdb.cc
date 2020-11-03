@@ -7,6 +7,7 @@ PebblesDB::PebblesDB(kv_benchmark::Options& options)
     leveldb::Options _options;
     _options.create_if_missing = true;
     _options.compression = leveldb::kNoCompression;
+    _options.write_buffer_size = 64 * 1024 * 1024;
     leveldb::DB::Open(_options, options.db_path, &db_);
     assert(db_ != nullptr);
 }

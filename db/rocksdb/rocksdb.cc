@@ -7,6 +7,7 @@ RocksDB::RocksDB(kv_benchmark::Options& options)
     rocksdb::Options _options;
     _options.create_if_missing = true;
     _options.compression = rocksdb::kNoCompression;
+    _options.write_buffer_size = 64 * 1024 * 1024;
     rocksdb::DB::Open(_options, options.db_path, &db_);
     assert(db_ != nullptr);
 }

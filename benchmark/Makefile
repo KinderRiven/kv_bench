@@ -7,6 +7,9 @@ SRC_MATRIXKV := -I../db/matrixkv ../db/matrixkv/matrixkv.cc ../db/matrixkv/db.cc
 
 all: leveldb rocksdb novelsm pebblesdb matrixkv
 
+detail:
+	g++ -std=c++11 detail.cc -o detail
+
 matrixkv:
 	g++ -std=c++11 -I../include $(SRC_MATRIXKV) test.cc -o matrixkv_tester -L../third-party/matrixkv -lrocksdb -lpmem -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
 
