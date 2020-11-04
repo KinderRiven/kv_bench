@@ -16,6 +16,11 @@ RocksDB::RocksDB(kv_benchmark::Options& options)
     _table_options.block_cache = _cache;
     _options.table_factory.reset(NewBlockBasedTableFactory(_table_options));
 
+    // direct read/write
+    _options.use_direct_reads = true;
+    _options.use_direct_io_for_flush_and_compaction = true;
+
+    // Open an DB
     rocksdb::DB::Open(_options, options.db_path, &db_);
     assert(db_ != nullptr);
 }
