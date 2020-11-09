@@ -24,6 +24,30 @@ MatrixKV::MatrixKV(kv_benchmark::Options& options)
     _options.use_direct_reads = true;
     _options.use_direct_io_for_flush_and_compaction = true;
 
+    // compaction
+    // _options.level0_file_num_compaction_trigger = 10;
+    // level based compaction style
+    // *** kCompactionStyleLevel = 0x0,
+    // Universal compaction style
+    // Not supported in ROCKSDB_LITE.
+    // *** kCompactionStyleUniversal = 0x1, (Tiered)
+    // FIFO compaction style
+    // Not supported in ROCKSDB_LITE
+    // *** kCompactionStyleFIFO = 0x2,
+    // Disable background compaction. Compaction jobs are submitted
+    // via CompactFiles().
+    // Not supported in ROCKSDB_LITE
+    // *** kCompactionStyleNone = 0x3,
+    _options.compaction_style = rocksdb::kCompactionStyleLevel;
+    // _options.compaction_options_universal;
+    // _options.disable_auto_compactions;
+    // _options.compaction_filter;
+    // _options.compaction_filter_factory;
+    _options.target_file_size_base = 64 * 1024 * 1024; // default
+    _options.target_file_size_multiplier = 1;
+    _options.max_compaction_bytes = 0;
+    _options.max_background_compactions = 1; // only one backend compaction thread
+
     rocksdb::DB::Open(_options, options.db_path, &db_);
     assert(db_ != nullptr);
 }
