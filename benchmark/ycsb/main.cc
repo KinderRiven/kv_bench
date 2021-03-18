@@ -21,6 +21,34 @@ public:
     kv_benchmark::DB* db;
 };
 
+// --ssd=
+// data store path
+static char g_ssd_path[128] = "/home/hanshukai/dir1/dbdir";
+
+// --nvm=
+// NVM file path
+static char g_pmem_path[128] = "/home/pmem0";
+
+// --num_thread
+// server thread count
+static int g_num_threads = 1;
+
+// --key_length
+// key length
+static size_t g_key_length = 16;
+
+// --value_length
+// value length
+static size_t g_value_length = 1000;
+
+// --dbsize (MB)
+// warm up size (B)
+static size_t g_dbsize = 10UL * 1024 * 1024 * 1024;
+
+// --psize
+// test size = g_psize * dbsize
+static double g_psize = 0.2;
+
 static void start_workload(struct workload_options* options)
 {
     uint64_t _key_base = 1;
@@ -45,36 +73,25 @@ static void start_workload(struct workload_options* options)
 
 int main(int argc, char* argv[])
 {
-    // DB opation
-    char _ssd_path[128] = "/home/hanshukai/dir1/dbdir";
-    char _pmem_path[128] = "/home/pmem0";
-
-    // Workload Parameter
-    int _num_threads = 1;
-    size_t _key_length = 16;
-    size_t _value_length = 1000;
-    size_t _dbsize = 1024 * 1024 * 1024;
-    double _psize = 0.2;
-
     // workload generator
     for (int i = 0; i < argc; i++) {
         char junk;
         uint64_t n;
         double f;
         if (sscanf(argv[i], "--key_length=%llu%c", &n, &junk) == 1) {
-            _key_length = n;
+            g_key_length = n;
         } else if (sscanf(argv[i], "--value_length=%llu%c", &n, &junk) == 1) {
-            _value_length = n;
+            g_value_length = n;
         } else if (sscanf(argv[i], "--num_thread=%llu%c", &n, &junk) == 1) {
-            _num_threads = n;
+            g_num_threads = n;
         } else if (sscanf(argv[i], "--dbsize=%llu%c", &n, &junk) == 1) { // GB
-            _dbsize = n * (1024 * 1024 * 1024);
+            g_dbsize = n * (1024 * 1024 * 1024);
         } else if (sscanf(argv[i], "--psize=%lf%c", &f, &junk) == 1) { // GB
-            _psize = f;
+            g_psize = f;
         } else if (strncmp(argv[i], "--nvm=", 6) == 0) {
-            strcpy(_pmem_path, argv[i] + 6);
+            strcpy(g_pmem_path, argv[i] + 6);
         } else if (strncmp(argv[i], "--ssd=", 6) == 0) {
-            strcpy(_ssd_path, argv[i] + 6);
+            strcpy(g_ssd_path, argv[i] + 6);
         } else if (i > 0) {
             printf("+++ ERROR PARAMETER (%s)\n", argv[i]);
             exit(1);
@@ -83,8 +100,8 @@ int main(int argc, char* argv[])
 
     kv_benchmark::DB* _db = nullptr;
     kv_benchmark::Options _options;
-    _options.nvm_path.assign(_pmem_path);
-    _options.db_path.assign(_ssd_path);
+    _options.nvm_path.assign(g_pmem_path);
+    _options.db_path.assign(g_ssd_path);
     kv_benchmark::DB::Open(_options, &_db);
 
     // CREATE RESULT SAVE PATH
@@ -95,31 +112,36 @@ int main(int argc, char* argv[])
     mkdir(_result_path, 0777);
 
     struct workload_options _wopt;
-    _wopt.key_length = _key_length;
-    _wopt.value_length = _value_length;
-    _wopt.num_threads = _num_threads;
-    _wopt.dbsize = _dbsize;
+    _wopt.key_length = g_key_length;
+    _wopt.value_length = g_value_length;
+    _wopt.num_threads = g_num_threads;
+    _wopt.dbsize = g_dbsize;
     _wopt.db = _db;
     _wopt.result_path.assign(_result_path);
 
     strcpy(_wopt.name, "WARMUP");
     _wopt.type = YCSB_SEQ_LOAD;
-    _wopt.workload_size = _dbsize;
+    _wopt.workload_size = g_dbsize;
     start_workload(&_wopt);
 
-    strcpy(_wopt.name, "YCSB_A");
+    strcpy(_wopt.name, "YCSB_A"); // 50% UPDATE + 50% GET
     _wopt.type = YCSB_A;
-    _wopt.workload_size = (size_t)(_psize * _dbsize);
+    _wopt.workload_size = (size_t)(g_psize * g_dbsize);
     start_workload(&_wopt);
 
-    strcpy(_wopt.name, "YCSB_C-0");
-    _wopt.type = YCSB_C;
-    _wopt.workload_size = (size_t)(_psize * _dbsize);
+    strcpy(_wopt.name, "YCSB_B"); // 95% UPDATE + 5% GET
+    _wopt.type = YCSB_A;
+    _wopt.workload_size = (size_t)(g_psize * g_dbsize);
     start_workload(&_wopt);
 
-    strcpy(_wopt.name, "YCSB_C-1");
+    strcpy(_wopt.name, "YCSB_C-0"); // 100% GET
     _wopt.type = YCSB_C;
-    _wopt.workload_size = (size_t)(_psize * _dbsize);
+    _wopt.workload_size = (size_t)(g_psize * g_dbsize);
+    start_workload(&_wopt);
+
+    strcpy(_wopt.name, "YCSB_C-1"); // 100% GET
+    _wopt.type = YCSB_C;
+    _wopt.workload_size = (size_t)(g_psize * g_dbsize);
     start_workload(&_wopt);
     return 0;
 }
