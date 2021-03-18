@@ -17,7 +17,7 @@ RocksDB::RocksDB(kv_benchmark::Options& options)
 
     // cache
     // set block cache size
-    std::shared_ptr<rocksdb::Cache> _cache = rocksdb::NewLRUCache(8 * 1024 * 1024);
+    std::shared_ptr<rocksdb::Cache> _cache = rocksdb::NewLRUCache(128 * 1024 * 1024);
     rocksdb::BlockBasedTableOptions _table_options;
     _table_options.block_cache = _cache;
     _options.table_factory.reset(NewBlockBasedTableFactory(_table_options));
@@ -66,6 +66,13 @@ bool RocksDB::Put(char* key, size_t key_length, char* value, size_t value_length
     rocksdb::Slice _key(key, key_length);
     rocksdb::Slice _value(value, value_length);
     rocksdb::Status _status = db_->Put(rocksdb::WriteOptions(), _key, _value);
+    return (_status.ok() == true) ? true : false;
+}
+
+bool RocksDB::Delete(char* key, size_t key_length)
+{
+    rocksdb::Slice _key(key, key_length);
+    rocksdb::Status _status = db_->Delete(rocksdb::WriteOptions(), _key);
     return (_status.ok() == true) ? true : false;
 }
 

@@ -82,7 +82,6 @@ static void thread_task(thread_param_t* param)
         int __type = _benchmark->get_kv_pair(_key, _key_length, _value, _value_length);
         _t2.Start();
         if (__type == YCSB_PUT) {
-            // TODO
             // DB::PUT()
             _result = _db->Put(_key, _key_length, _value, _value_length);
             param->result_count[__type]++;
@@ -90,7 +89,6 @@ static void thread_task(thread_param_t* param)
                 param->result_success[__type]++;
             }
         } else if (__type == YCSB_UPDATE) {
-            // TODO
             // DB::UPDATE()
             _result = _db->Put(_key, _key_length, _value, _value_length);
             param->result_count[__type]++;
@@ -98,7 +96,6 @@ static void thread_task(thread_param_t* param)
                 param->result_success[__type]++;
             }
         } else if (__type == YCSB_GET) {
-            // TODO
             // DB::GET()
             _result = _db->Get(_key, _key_length, _value, _value_length);
             param->result_count[__type]++;
@@ -106,13 +103,23 @@ static void thread_task(thread_param_t* param)
                 param->result_success[__type]++;
             }
         } else if (__type == YCSB_DELETE) {
-            // TODO
             // DB::DELETE
+            _result = _db->Delete(_key, _key_length);
+            param->result_count[__type]++;
+            if (_result) {
+                param->result_success[__type]++;
+            }
         } else if (__type == YCSB_RMW) {
-            // TODO
             // DB::Read&Update
+            _result = _db->Get(_key, _key_length, _value, _value_length); // read
+            if (_result) {
+                _result = _db->Put(_key, _key_length, _value, _value_length); // modify
+            }
+            param->result_count[__type]++;
+            if (_result) {
+                param->result_success[__type]++;
+            }
         } else if (__type == YCSB_SCAN) {
-            // TODO
             // DB::Scan
         }
         _t2.Stop();
