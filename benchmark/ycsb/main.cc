@@ -119,27 +119,32 @@ int main(int argc, char* argv[])
     _wopt.db = _db;
     _wopt.result_path.assign(_result_path);
 
+    // 100% SEQ WRITE FOR WARM UP
     strcpy(_wopt.name, "WARMUP");
     _wopt.type = YCSB_SEQ_LOAD;
     _wopt.workload_size = g_dbsize;
     start_workload(&_wopt);
 
-    strcpy(_wopt.name, "YCSB_A"); // 50% UPDATE + 50% GET
+    // 50% UPDATE + 50% GET
+    strcpy(_wopt.name, "YCSB_A");
     _wopt.type = YCSB_A;
     _wopt.workload_size = (size_t)(g_psize * g_dbsize);
     start_workload(&_wopt);
 
-    strcpy(_wopt.name, "YCSB_B"); // 95% UPDATE + 5% GET
+    // 95% UPDATE + 5% GET
+    strcpy(_wopt.name, "YCSB_B");
     _wopt.type = YCSB_A;
     _wopt.workload_size = (size_t)(g_psize * g_dbsize);
     start_workload(&_wopt);
 
-    strcpy(_wopt.name, "YCSB_C-0"); // 100% GET
+    // 100% GET
+    strcpy(_wopt.name, "YCSB_C-0");
     _wopt.type = YCSB_C;
     _wopt.workload_size = (size_t)(g_psize * g_dbsize);
     start_workload(&_wopt);
 
-    strcpy(_wopt.name, "YCSB_C-1"); // 100% GET
+    // 100% GET
+    strcpy(_wopt.name, "YCSB_C-1");
     _wopt.type = YCSB_C;
     _wopt.workload_size = (size_t)(g_psize * g_dbsize);
     start_workload(&_wopt);
