@@ -149,6 +149,6 @@ int main(int argc, char* argv[])
     _wopt.workload_size = (size_t)(g_psize * g_dbsize);
     start_workload(&_wopt);
 
-    kv_benchmark::DB::Close(_db);
+    _db->Close();
     return 0;
 }
