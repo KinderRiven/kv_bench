@@ -58,7 +58,7 @@ RocksDB::RocksDB(kv_benchmark::Options& options)
 
 RocksDB::~RocksDB()
 {
-    delete db_;
+    db_->Close();
 }
 
 bool RocksDB::Put(char* key, size_t key_length, char* value, size_t value_length)
