@@ -5,6 +5,8 @@ SRC_PEBBLESDB := -I../../db/pebblesdb ../../db/pebblesdb/pebblesdb.cc ../../db/p
 SRC_MATRIXKV := -I../../db/matrixkv ../../db/matrixkv/matrixkv.cc ../../db/matrixkv/db.cc
 SRC_YCSB := main.cc workload_generator.cc workload_ycsb.c
 
+LIB_ROCKSDB := -L/home/hanshukai/rocksdb
+
 all: leveldb rocksdb novelsm pebblesdb matrixkv detail
 
 detail:
@@ -23,4 +25,4 @@ novelsm:
 	g++ -std=c++11 -I../../include $(SRC_NOVELSM) $(SRC_YCSB) -o novelsm_tester -L../../third-party/novelsm -lleveldb -lpthread -lsnappy -lnuma
 
 rocksdb:
-	g++ -std=c++11 -I../../include $(SRC_ROCKSDB) $(SRC_YCSB) -o rocksdb_tester -L../../third-party/rocksdb -lrocksdb -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
+	g++ -std=c++11 -I../../include $(SRC_ROCKSDB) $(SRC_YCSB) -o rocksdb_tester $(LIB_ROCKSDB) -lrocksdb -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
