@@ -6,6 +6,7 @@ SRC_MATRIXKV := -I../../db/matrixkv ../../db/matrixkv/matrixkv.cc ../../db/matri
 SRC_YCSB := main.cc workload_generator.cc workload_ycsb.c
 
 LIB_ROCKSDB := -L/home/hanshukai/rocksdb
+# LIB_ROCKSDB := -L../../third-party/rocksdb
 
 all: leveldb rocksdb novelsm pebblesdb matrixkv detail
 

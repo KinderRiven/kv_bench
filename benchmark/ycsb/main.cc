@@ -41,7 +41,7 @@ static size_t g_key_length = 16;
 // value length
 static size_t g_value_length = 1000;
 
-// --dbsize (MB)
+// --dbsize (GB)
 // warm up size (B)
 static size_t g_dbsize = 10UL * 1024 * 1024 * 1024;
 
@@ -148,5 +148,7 @@ int main(int argc, char* argv[])
     _wopt.type = YCSB_C;
     _wopt.workload_size = (size_t)(g_psize * g_dbsize);
     start_workload(&_wopt);
+
+    _db->Close();
     return 0;
 }
