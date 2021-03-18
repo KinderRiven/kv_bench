@@ -23,11 +23,11 @@ public:
 
 // --ssd=
 // data store path
-static char g_ssd_path[128] = "/home/hanshukai/dir1/dbdir";
+static char g_ssd_path[128] = "/home/hanshukai/mount/4510/dbbench";
 
 // --nvm=
 // NVM file path
-static char g_pmem_path[128] = "/home/pmem0";
+static char g_pmem_path[128] = "/home/pmem0/dbbench";
 
 // --num_thread
 // server thread count
