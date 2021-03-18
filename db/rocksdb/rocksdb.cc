@@ -58,6 +58,7 @@ RocksDB::RocksDB(kv_benchmark::Options& options)
 
 RocksDB::~RocksDB()
 {
+    printf("RocksDB::Close\n");
     db_->Close();
 }
 
