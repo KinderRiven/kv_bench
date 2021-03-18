@@ -7,8 +7,3 @@ void DB::Open(Options& options, DB** dbptr)
 {
     *dbptr = new RocksDB(options);
 }
-
-void DB::Close(DB* dbptr)
-{
-    delete dbptr;
-}

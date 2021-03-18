@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-18 11:55:19
- * @LastEditTime: 2021-03-18 12:08:19
+ * @LastEditTime: 2021-03-18 19:06:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /kv_bench/include/db.h
@@ -17,7 +17,7 @@ class DB {
 public:
     static void Open(Options& options, DB** dbptr);
 
-    static void Close(DB* dbptr);
+    virtual void Close();
 
 public:
     // Put key-value pair into database.

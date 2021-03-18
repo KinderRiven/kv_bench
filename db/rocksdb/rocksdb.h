@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-03-18 11:55:19
- * @LastEditTime: 2021-03-18 12:10:06
- * @LastEditors: your name
+ * @LastEditTime: 2021-03-18 19:07:01
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /kv_bench/db/rocksdb/rocksdb.h
  */
@@ -20,6 +20,8 @@ public:
     RocksDB(kv_benchmark::Options& options);
 
     ~RocksDB();
+
+    void Close();
 
 public:
     // Put key-value pair into database.
