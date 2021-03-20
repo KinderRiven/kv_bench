@@ -131,6 +131,7 @@ int main(int argc, char* argv[])
     _wopt.workload_size = (size_t)(g_psize * g_dbsize);
     start_workload(&_wopt);
 
+#if 0
     // 95% UPDATE + 5% GET
     strcpy(_wopt.name, "YCSB_B");
     _wopt.type = YCSB_A;
@@ -148,6 +149,7 @@ int main(int argc, char* argv[])
     _wopt.type = YCSB_C;
     _wopt.workload_size = (size_t)(g_psize * g_dbsize);
     start_workload(&_wopt);
+#endif
 
     _db->Close();
     return 0;
