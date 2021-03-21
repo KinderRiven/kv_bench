@@ -80,7 +80,6 @@ private:
     int random_get_put(int test)
     {
         long random = uniform_next() % 100;
-
         switch (test) {
         case YCSB_SEQ_LOAD:
             return YCSB_PUT;
@@ -107,6 +106,7 @@ public:
     int get_kv_pair(char* key, size_t& key_length, char* value, size_t& value_length)
     {
         int _opt_type;
+        memset(key, 0, key_length_);
 
         if (type_ == YCSB_SEQ_LOAD) {
             generate_kv_pair(++sequential_key_id_, key, value);
