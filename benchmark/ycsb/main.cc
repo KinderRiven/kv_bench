@@ -10,10 +10,10 @@ public:
     char name[256];
 
 public:
-    std::string result_path;
     int num_threads;
     size_t key_length;
     size_t value_length;
+    std::string result_path;
 
 public:
     uint64_t dbsize;
@@ -123,12 +123,14 @@ int main(int argc, char* argv[])
     strcpy(_wopt.name, "WARMUP");
     _wopt.type = YCSB_SEQ_LOAD;
     _wopt.workload_size = g_dbsize;
+    _wopt.num_threads = 1; // WE ONLY USE ONE THREAD TO WARM UP
     start_workload(&_wopt);
 
     // 50% UPDATE + 50% GET
     strcpy(_wopt.name, "YCSB_A");
     _wopt.type = YCSB_A;
     _wopt.workload_size = (size_t)(g_psize * g_dbsize);
+    _wopt.num_threads = g_num_threads;
     start_workload(&_wopt);
 
 #if 0
@@ -136,18 +138,21 @@ int main(int argc, char* argv[])
     strcpy(_wopt.name, "YCSB_B");
     _wopt.type = YCSB_A;
     _wopt.workload_size = (size_t)(g_psize * g_dbsize);
+    _wopt.num_threads = g_num_threads;
     start_workload(&_wopt);
 
     // 100% GET
     strcpy(_wopt.name, "YCSB_C-0");
     _wopt.type = YCSB_C;
     _wopt.workload_size = (size_t)(g_psize * g_dbsize);
+    _wopt.num_threads = g_num_threads;
     start_workload(&_wopt);
 
     // 100% GET
     strcpy(_wopt.name, "YCSB_C-1");
     _wopt.type = YCSB_C;
     _wopt.workload_size = (size_t)(g_psize * g_dbsize);
+    _wopt.num_threads = g_num_threads;
     start_workload(&_wopt);
 #endif
 
