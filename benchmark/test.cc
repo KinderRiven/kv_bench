@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2021-03-18 11:55:19
+ * @LastEditTime: 2021-03-20 20:16:25
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: /kv_bench/benchmark/test.cc
+ */
 #include "db.h"
 #include "header.h"
 #include "options.h"
@@ -22,7 +30,6 @@ int main(int argc, char** argv)
         *(uint64_t*)_value = (uint64_t)i;
         _db->Put(_key, _key_length, _value, _value_length);
     }
-
     for (int i = 0; i < 1000000; i++) {
         *(uint64_t*)_key = (uint64_t)i;
         *(uint64_t*)_value = 0;
@@ -33,7 +40,6 @@ int main(int argc, char** argv)
             _cnt++;
         }
     }
-
     printf("SUCCESS:%llu/%.2f%%\n", _cnt, 100.0 * _cnt / 1000000);
     DB::Close(_db);
     return 0;
