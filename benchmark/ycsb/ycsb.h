@@ -21,7 +21,6 @@
 #define YCSB_SCAN (4)
 #define YCSB_RMW (5)
 
-#define YCSB_ZIPFAN (1)
 #define YCSB_NUM_WORKLOAD_TYPE (8)
 // YCSB-A: 50% updates, 50% reads
 #define YCSB_A (0 << 1)

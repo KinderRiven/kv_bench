@@ -21,6 +21,15 @@ public:
     kv_benchmark::DB* db;
 };
 
+// --btype
+// benchmark type
+// warmup, ycsb-a, ycsb-b, ycsb-c, ycsb-d, ycsb-e, ycsb-f
+static char g_benchmark_type[128] = "warmup";
+
+// 0 is unifrom skew
+// 1 is zipfian skew
+static int g_zipf = 0;
+
 // --ssd=
 // data store path
 static char g_ssd_path[128] = "/home/hanshukai/mount/4510/dbbench";
@@ -88,10 +97,14 @@ int main(int argc, char* argv[])
             g_dbsize = n * (1024 * 1024 * 1024);
         } else if (sscanf(argv[i], "--psize=%lf%c", &f, &junk) == 1) { // GB
             g_psize = f;
+        } else if (sscanf(argv[i], "--zipf=%llu%c", &n, &junk) == 1) { // GB
+            g_zipf = n;
         } else if (strncmp(argv[i], "--nvm=", 6) == 0) {
             strcpy(g_pmem_path, argv[i] + 6);
         } else if (strncmp(argv[i], "--ssd=", 6) == 0) {
             strcpy(g_ssd_path, argv[i] + 6);
+        } else if (strncmp(argv[i], "--btype=", 8) == 0) {
+            strcpy(g_benchmark_type, argv[i] + 8);
         } else if (i > 0) {
             printf("+++ ERROR PARAMETER (%s)\n", argv[i]);
             exit(1);
@@ -119,42 +132,68 @@ int main(int argc, char* argv[])
     _wopt.db = _db;
     _wopt.result_path.assign(_result_path);
 
-    // 100% SEQ WRITE FOR WARM UP
-    strcpy(_wopt.name, "WARMUP");
-    _wopt.type = YCSB_SEQ_LOAD;
-    _wopt.workload_size = g_dbsize;
-    _wopt.num_threads = 1; // WE ONLY USE ONE THREAD TO WARM UP
-    start_workload(&_wopt);
+    if (strcmp(g_benchmark_type, "warmup") == 0) {
+        // 100% SEQ WRITE FOR WARM UP
+        strcpy(_wopt.name, "WARMUP");
+        _wopt.type = YCSB_SEQ_LOAD | g_zipf;
+        _wopt.workload_size = g_dbsize;
+        _wopt.num_threads = 1; // WE ONLY USE ONE THREAD TO WARM UP
+        start_workload(&_wopt);
+    }
 
-    // 50% UPDATE + 50% GET
-    strcpy(_wopt.name, "YCSB_A");
-    _wopt.type = YCSB_A;
-    _wopt.workload_size = (size_t)(g_psize * g_dbsize);
-    _wopt.num_threads = g_num_threads;
-    start_workload(&_wopt);
+    if (strcmp(g_benchmark_type, "ycsb-a") == 0) {
+        // 50% UPDATE + 50% GET
+        strcpy(_wopt.name, "YCSB_A");
+        _wopt.type = YCSB_A | g_zipf;
+        _wopt.workload_size = (size_t)(g_psize * g_dbsize);
+        _wopt.num_threads = g_num_threads;
+        start_workload(&_wopt);
+    }
 
-#if 0
-    // 95% UPDATE + 5% GET
-    strcpy(_wopt.name, "YCSB_B");
-    _wopt.type = YCSB_A;
-    _wopt.workload_size = (size_t)(g_psize * g_dbsize);
-    _wopt.num_threads = g_num_threads;
-    start_workload(&_wopt);
+    if (strcmp(g_benchmark_type, "ycsb-b") == 0) {
+        // 95% UPDATE + 5% GET
+        strcpy(_wopt.name, "YCSB_B");
+        _wopt.type = YCSB_B | g_zipf;
+        _wopt.workload_size = (size_t)(g_psize * g_dbsize);
+        _wopt.num_threads = g_num_threads;
+        start_workload(&_wopt);
+    }
 
-    // 100% GET
-    strcpy(_wopt.name, "YCSB_C-0");
-    _wopt.type = YCSB_C;
-    _wopt.workload_size = (size_t)(g_psize * g_dbsize);
-    _wopt.num_threads = g_num_threads;
-    start_workload(&_wopt);
+    if (strcmp(g_benchmark_type, "ycsb-c") == 0) {
+        // 100% GET
+        strcpy(_wopt.name, "YCSB_C-0");
+        _wopt.type = YCSB_C | g_zipf;
+        _wopt.workload_size = (size_t)(g_psize * g_dbsize);
+        _wopt.num_threads = g_num_threads;
+        start_workload(&_wopt);
+    }
 
-    // 100% GET
-    strcpy(_wopt.name, "YCSB_C-1");
-    _wopt.type = YCSB_C;
-    _wopt.workload_size = (size_t)(g_psize * g_dbsize);
-    _wopt.num_threads = g_num_threads;
-    start_workload(&_wopt);
-#endif
+    if (strcmp(g_benchmark_type, "ycsb-d") == 0) {
+        // 100% GET
+        strcpy(_wopt.name, "YCSB_C-1");
+        _wopt.type = YCSB_D | g_zipf;
+        _wopt.workload_size = (size_t)(g_psize * g_dbsize);
+        _wopt.num_threads = g_num_threads;
+        start_workload(&_wopt);
+    }
+
+    if (strcmp(g_benchmark_type, "ycsb-e") == 0) {
+        // 100% GET
+        strcpy(_wopt.name, "YCSB_C-1");
+        _wopt.type = YCSB_E | g_zipf;
+        _wopt.workload_size = (size_t)(g_psize * g_dbsize);
+        _wopt.num_threads = g_num_threads;
+        start_workload(&_wopt);
+    }
+
+    if (strcmp(g_benchmark_type, "ycsb-f") == 0) {
+        // 100% GET
+        strcpy(_wopt.name, "YCSB_C-1");
+        _wopt.type = YCSB_F | g_zipf;
+        _wopt.workload_size = (size_t)(g_psize * g_dbsize);
+        _wopt.num_threads = g_num_threads;
+        start_workload(&_wopt);
+    }
 
     _db->Close();
     return 0;
