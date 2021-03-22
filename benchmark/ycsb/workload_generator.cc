@@ -1,6 +1,7 @@
 #include "workload_generator.h"
-#include "concurrentqueue.h"
+// #include "concurrentqueue.h"
 #include "header.h"
+#include "tbb/concurrent_queue.h"
 #include "timer.h"
 #include "ycsb.h"
 
@@ -53,14 +54,15 @@ static void result_output(const char* name, std::vector<uint64_t>& data)
     }
 }
 
-static moodycamel::ConcurrentQueue<uint64_t> g_queue[16];
+static tbb::concurrent_queue<uint64_t> g_queue[16];
 
-static void result_output2(const char* name, moodycamel::ConcurrentQueue<uint64_t>* queue)
+static void result_output2(const char* name, tbb::concurrent_queue<uint64_t>* queue)
 {
     std::ofstream fout(name);
     if (fout.is_open()) {
         uint64_t _lat;
-        while (queue->try_dequeue(_lat)) {
+        while (!queue->empty()) {
+            queue->try_pop(_lat);
             fout << _lat << std::endl;
         }
         fout.close();
@@ -142,7 +144,7 @@ static void thread_task(thread_param_t* param)
         }
         _t2.Stop();
         _latency = _t2.Get();
-        g_queue[__type].enqueue(_latency);
+        g_queue[__type].push(_latency); // push to global queue
         param->result_latency[__type] += _latency;
         param->sum_latency += _latency;
         param->vec_latency[__type].push_back(_latency);
@@ -194,10 +196,12 @@ void WorkloadGenerator::Run()
     // PRINT LATENCY FOR EACH THREAD
     for (int i = 0; i < num_threads_; i++) {
         double __lat = 1.0 * _params[i].sum_latency / (1000UL * _params[i].count);
+        // print to file
         _fout << ">>thread" << i << std::endl;
         _fout << "  [0] count:" << _params[i].count << "]" << std::endl;
         _fout << "  [1] lat:" << __lat << "us" << std::endl;
         _fout << "  [2] iops:" << 1000000.0 / __lat << std::endl;
+        // loop
         for (int j = 0; j < YCSB_NUM_OPT_TYPE; j++) {
             if (_params[i].vec_latency[j].size() > 0) {
 #ifdef PRINT_THREAD_LATENCY
@@ -208,14 +212,16 @@ void WorkloadGenerator::Run()
 #endif
                 __lat = 1.0 * _params[i].result_latency[j] / (1000UL * _params[i].result_count[j]);
                 std::string __str = _g_oname[j];
+                // print to file
                 _fout << "  [" << __str << "][lat:" << __lat << "][iops:" << 1000000.0 / __lat << "][count:" << _params[i].result_count[j] << "|" << 100.0 * _params[i].result_count[j] / _params[i].count << "%%][success:" << _params[i].result_success[j] << "|" << 100.0 * _params[i].result_success[j] / _params[i].result_count[j] << "%%]" << std::endl;
             }
         }
     }
+
 #ifdef PRINT_TOTAL_LATENCY
     // PRINT TOTAL THREAD LATENCY
     for (int i = 0; i < YCSB_NUM_OPT_TYPE; i++) {
-        if (g_queue[i].size_approx() > 0) {
+        if (g_queue->unsafe_size() > 0) {
             char _result_file2[128];
             sprintf(_result_file2, "%s/total_%s_%s.lat", result_path_.c_str(), name_, _g_oname[i]);
             result_output2(_result_file2, &g_queue[i]);
