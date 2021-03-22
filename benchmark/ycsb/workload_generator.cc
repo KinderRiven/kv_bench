@@ -162,7 +162,6 @@ WorkloadGenerator::WorkloadGenerator(const char* name, struct generator_paramete
     , value_length_(param->value_length)
 {
     strcpy(name_, name);
-
     for (int i = 0; i < num_threads_; i++) {
         benchmarks_[i] = benchmarks[i];
     }
@@ -220,7 +219,7 @@ void WorkloadGenerator::Run()
 #ifdef PRINT_TOTAL_LATENCY
     // PRINT TOTAL THREAD LATENCY
     for (int i = 0; i < YCSB_NUM_OPT_TYPE; i++) {
-        if (g_queue->unsafe_size() > 0) {
+        if (g_queue[i].unsafe_size() > 0) {
             char _result_file2[128];
             sprintf(_result_file2, "%s/total_%s_%s.lat", result_path_.c_str(), name_, _g_oname[i]);
             result_output2(_result_file2, &g_queue[i]);
