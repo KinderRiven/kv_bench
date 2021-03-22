@@ -184,7 +184,6 @@ void WorkloadGenerator::Run()
         _params[i].count = _count;
         _threads[i] = std::thread(thread_task, &_params[i]);
     }
-
     for (int i = 0; i < num_threads_; i++) {
         _threads[i].join();
     }
