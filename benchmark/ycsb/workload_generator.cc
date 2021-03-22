@@ -1,4 +1,5 @@
 #include "workload_generator.h"
+#include "concurrentqueue.h"
 #include "header.h"
 #include "timer.h"
 #include "ycsb.h"
@@ -44,6 +45,20 @@ static void result_output(const char* name, std::vector<uint64_t>& data)
     if (fout.is_open()) {
         for (int i = 0; i < data.size(); i++) {
             fout << data[i] << std::endl;
+        }
+        fout.close();
+    }
+}
+
+static moodycamel::ConcurrentQueue<uint64_t> g_queue;
+
+static void result_output2(const char* name, moodycamel::ConcurrentQueue<uint64_t>* queue)
+{
+    std::ofstream fout(name);
+    if (fout.is_open()) {
+        uint64_t _lat;
+        while (queue->try_dequeue(_lat)) {
+            fout << _lat << std::endl;
         }
         fout.close();
     }
@@ -124,6 +139,7 @@ static void thread_task(thread_param_t* param)
         }
         _t2.Stop();
         _latency = _t2.Get();
+        g_queue.enqueue(_latency);
         param->result_latency[__type] += _latency;
         param->sum_latency += _latency;
         param->vec_latency[__type].push_back(_latency);
@@ -168,10 +184,10 @@ void WorkloadGenerator::Run()
         _threads[i].join();
     }
 
+    // PRINT EACH THREAD LATENCY
     char _result_file[128];
     sprintf(_result_file, "%s/%s.result", result_path_.c_str(), name_);
     std::ofstream _fout(_result_file);
-
     for (int i = 0; i < num_threads_; i++) {
         double __lat = 1.0 * _params[i].sum_latency / (1000UL * _params[i].count);
         _fout << ">>thread" << i << std::endl;
@@ -181,6 +197,7 @@ void WorkloadGenerator::Run()
         for (int j = 0; j < YCSB_NUM_OPT_TYPE; j++) {
             if (_params[i].vec_latency[j].size() > 0) {
                 char __name[128];
+                // {thread_id}_{benchmark_name}_{operator_name}
                 sprintf(__name, "%s/%d_%s_%s.lat", result_path_.c_str(), i, name_, _g_oname[j]);
                 result_output(__name, _params[i].vec_latency[j]);
                 __lat = 1.0 * _params[i].result_latency[j] / (1000UL * _params[i].result_count[j]);
@@ -189,5 +206,11 @@ void WorkloadGenerator::Run()
             }
         }
     }
+    // PRINT TOTAL THREAD LATENCY
+    char _result_file2[128];
+    sprintf(_result_file2, "%s/total_%s_%s.lat", result_path_.c_str(), name_, _g_oname[j]);
+    result_output2(_result_file2, &g_queue);
+
     _fout.close();
+    return;
 }
