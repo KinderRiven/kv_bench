@@ -39,6 +39,9 @@ public:
     }
 };
 
+#define PRINT_THREAD_LATENCY
+#define PRINT_TOTAL_LATENCY
+
 static void result_output(const char* name, std::vector<uint64_t>& data)
 {
     std::ofstream fout(name);
@@ -50,7 +53,7 @@ static void result_output(const char* name, std::vector<uint64_t>& data)
     }
 }
 
-static moodycamel::ConcurrentQueue<uint64_t> g_queue;
+static moodycamel::ConcurrentQueue<uint64_t> g_queue[16];
 
 static void result_output2(const char* name, moodycamel::ConcurrentQueue<uint64_t>* queue)
 {
@@ -139,7 +142,7 @@ static void thread_task(thread_param_t* param)
         }
         _t2.Stop();
         _latency = _t2.Get();
-        g_queue.enqueue(_latency);
+        g_queue[__type].enqueue(_latency);
         param->result_latency[__type] += _latency;
         param->sum_latency += _latency;
         param->vec_latency[__type].push_back(_latency);
@@ -184,10 +187,11 @@ void WorkloadGenerator::Run()
         _threads[i].join();
     }
 
-    // PRINT EACH THREAD LATENCY
     char _result_file[128];
     sprintf(_result_file, "%s/%s.result", result_path_.c_str(), name_);
     std::ofstream _fout(_result_file);
+
+    // PRINT LATENCY FOR EACH THREAD
     for (int i = 0; i < num_threads_; i++) {
         double __lat = 1.0 * _params[i].sum_latency / (1000UL * _params[i].count);
         _fout << ">>thread" << i << std::endl;
@@ -196,21 +200,28 @@ void WorkloadGenerator::Run()
         _fout << "  [2] iops:" << 1000000.0 / __lat << std::endl;
         for (int j = 0; j < YCSB_NUM_OPT_TYPE; j++) {
             if (_params[i].vec_latency[j].size() > 0) {
+#ifdef PRINT_THREAD_LATENCY
                 char __name[128];
                 // {thread_id}_{benchmark_name}_{operator_name}
-                sprintf(__name, "%s/%d_%s_%s.lat", result_path_.c_str(), i, name_, _g_oname[j]);
+                sprintf(__name, "%s/thread%d_%s_%s.lat", result_path_.c_str(), i, name_, _g_oname[j]);
                 result_output(__name, _params[i].vec_latency[j]);
+#endif
                 __lat = 1.0 * _params[i].result_latency[j] / (1000UL * _params[i].result_count[j]);
                 std::string __str = _g_oname[j];
                 _fout << "  [" << __str << "][lat:" << __lat << "][iops:" << 1000000.0 / __lat << "][count:" << _params[i].result_count[j] << "|" << 100.0 * _params[i].result_count[j] / _params[i].count << "%%][success:" << _params[i].result_success[j] << "|" << 100.0 * _params[i].result_success[j] / _params[i].result_count[j] << "%%]" << std::endl;
             }
         }
     }
+#ifdef PRINT_TOTAL_LATENCY
     // PRINT TOTAL THREAD LATENCY
-    char _result_file2[128];
-    sprintf(_result_file2, "%s/total_%s_%s.lat", result_path_.c_str(), name_, _g_oname[j]);
-    result_output2(_result_file2, &g_queue);
-
+    for (int i = 0; i < YCSB_NUM_OPT_TYPE; i++) {
+        if (g_queue[i].size_approx() > 0) {
+            char _result_file2[128];
+            sprintf(_result_file2, "%s/total_%s_%s.lat", result_path_.c_str(), name_, _g_oname[i]);
+            result_output2(_result_file2, &g_queue[i]);
+        }
+    }
+#endif
     _fout.close();
     return;
 }
