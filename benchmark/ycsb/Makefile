@@ -38,6 +38,9 @@ rocksdb:
 matrixkv:
 	g++ -std=c++11 -I../../include $(SRC_MATRIXKV) $(SRC_YCSB) -o matrixkv_tester $(LIB) $(LIB_MATRIXKV)
 
+silk:
+	g++ -std=c++11 -I../../include $(SRC_SILK) $(SRC_YCSB) -o matrixkv_tester $(LIB) $(LIB_SILK)
+
 pebblesdb:
 	g++ -std=c++11 -I../../include $(SRC_PEBBLESDB) $(SRC_YCSB) -o pebblesdb_tester -L../../third-party/pebblesdb -lpebblesdb -lpthread -lsnappy
 
