@@ -1,17 +1,27 @@
+### RocksDB ###
 SRC_ROCKSDB := -I../../db/rocksdb ../../db/rocksdb/rocksdb.cc ../../db/rocksdb/db.cc
-SRC_MATRIXKV := -I../../db/matrixkv ../../db/matrixkv/matrixkv.cc ../../db/matrixkv/db.cc
-SRC_LEVELDB := -I../../db/leveldb ../../db/leveldb/leveldb.cc ../../db/leveldb/db.cc
-SRC_NOVELSM := -I../../db/novelsm ../../db/novelsm/novelsm.cc ../../db/novelsm/db.cc
-SRC_PEBBLESDB := -I../../db/pebblesdb ../../db/pebblesdb/pebblesdb.cc ../../db/pebblesdb/db.cc
-SRC_YCSB := main.cc workload_generator.cc workload_ycsb.c
-
 LIB_ROCKSDB := -L/home/hanshukai/rocksdb -lrocksdb -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
 # LIB_ROCKSDB := -L../../third-party/rocksdb
+
+### MatrixKV ###
+SRC_MATRIXKV := -I../../db/matrixkv ../../db/matrixkv/matrixkv.cc ../../db/matrixkv/db.cc
 LIB_MATRIXKV := -L../../third-party/matrixkv -lrocksdb -lpmem -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
 
+### LevelDB ###
+SRC_LEVELDB := -I../../db/leveldb ../../db/leveldb/leveldb.cc ../../db/leveldb/db.cc
+
+### NoveLSM ###
+SRC_NOVELSM := -I../../db/novelsm ../../db/novelsm/novelsm.cc ../../db/novelsm/db.cc
+
+### PebblesDB ###
+SRC_PEBBLESDB := -I../../db/pebblesdb ../../db/pebblesdb/pebblesdb.cc ../../db/pebblesdb/db.cc
+
+
+###
+SRC_YCSB := main.cc workload_generator.cc workload_ycsb.c
 LIB := -L../../third-party/tbb -ltbb
 
-all: leveldb rocksdb novelsm pebblesdb matrixkv detail
+all: rocksdb matrixkv detail
 
 detail:
 	g++ -std=c++11 detail.cc -o detail
