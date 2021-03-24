@@ -7,6 +7,12 @@ LIB_ROCKSDB := -L/home/hanshukai/LightRocksDB -lrocksdb -ljemalloc -ldl -lpthrea
 SRC_MATRIXKV := -I../../db/matrixkv ../../db/matrixkv/matrixkv.cc ../../db/matrixkv/db.cc
 LIB_MATRIXKV := -L../../third-party/matrixkv -lrocksdb -lpmem -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
 
+### SILK ###
+SRC_SILK := -I../../db/silk ../../db/silk/silk.cc ../../db/silk/db.cc
+LIB_SILK := -L/home/hanshukai/SILK-USENIXATC2019 -lrocksdb -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
+# LIB_ROCKSDB := -L../../third-party/rocksdb
+
+
 ### LevelDB ###
 SRC_LEVELDB := -I../../db/leveldb ../../db/leveldb/leveldb.cc ../../db/leveldb/db.cc
 
