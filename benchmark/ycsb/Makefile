@@ -27,7 +27,7 @@ SRC_PEBBLESDB := -I../../db/pebblesdb ../../db/pebblesdb/pebblesdb.cc ../../db/p
 SRC_YCSB := main.cc workload_generator.cc workload_ycsb.c
 LIB := -L../../third-party/tbb -ltbb
 
-all: rocksdb matrixkv detail
+all: rocksdb matrixkv silk detail
 
 detail:
 	g++ -std=c++11 detail.cc -o detail
