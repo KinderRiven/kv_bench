@@ -5,11 +5,11 @@ SRC_NOVELSM := -I../../db/novelsm ../../db/novelsm/novelsm.cc ../../db/novelsm/d
 SRC_PEBBLESDB := -I../../db/pebblesdb ../../db/pebblesdb/pebblesdb.cc ../../db/pebblesdb/db.cc
 SRC_YCSB := main.cc workload_generator.cc workload_ycsb.c
 
-LIB_ROCKSDB := -L/home/hanshukai/rocksdb
+LIB_ROCKSDB := -L/home/hanshukai/rocksdb -lrocksdb -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
 # LIB_ROCKSDB := -L../../third-party/rocksdb
-LIB_MATRIXKV := -L../../third-party/matrixkv
+LIB_MATRIXKV := -L../../third-party/matrixkv -lrocksdb -lpmem -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
 
-LIB := -L../../third-party/tbb
+LIB := -L../../third-party/tbb -ltbb
 
 all: leveldb rocksdb novelsm pebblesdb matrixkv detail
 
@@ -17,10 +17,10 @@ detail:
 	g++ -std=c++11 detail.cc -o detail
 
 rocksdb:
-	g++ -std=c++11 -I../../include $(SRC_ROCKSDB) $(SRC_YCSB) -o rocksdb_tester $(LIB) $(LIB_ROCKSDB) -lrocksdb -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd -ltbb
+	g++ -std=c++11 -I../../include $(SRC_ROCKSDB) $(SRC_YCSB) -o rocksdb_tester $(LIB) $(LIB_ROCKSDB)
 
 matrixkv:
-	g++ -std=c++11 -I../../include $(SRC_MATRIXKV) $(SRC_YCSB) -o matrixkv_tester $(LIB) $(LIB_MATRIXKV) -lrocksdb -lpmem -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd -ltbb
+	g++ -std=c++11 -I../../include $(SRC_MATRIXKV) $(SRC_YCSB) -o matrixkv_tester $(LIB) $(LIB_MATRIXKV)
 
 pebblesdb:
 	g++ -std=c++11 -I../../include $(SRC_PEBBLESDB) $(SRC_YCSB) -o pebblesdb_tester -L../../third-party/pebblesdb -lpebblesdb -lpthread -lsnappy
