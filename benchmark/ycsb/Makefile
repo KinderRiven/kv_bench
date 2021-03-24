@@ -1,6 +1,6 @@
 ### RocksDB ###
 SRC_ROCKSDB := -I../../db/rocksdb ../../db/rocksdb/rocksdb.cc ../../db/rocksdb/db.cc
-LIB_ROCKSDB := -L/home/hanshukai/rocksdb -lrocksdb -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
+LIB_ROCKSDB := -L/home/hanshukai/LightRocksDB -lrocksdb -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
 # LIB_ROCKSDB := -L../../third-party/rocksdb
 
 ### MatrixKV ###
