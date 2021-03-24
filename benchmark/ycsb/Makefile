@@ -7,6 +7,7 @@ SRC_YCSB := main.cc workload_generator.cc workload_ycsb.c
 
 LIB_ROCKSDB := -L/home/hanshukai/rocksdb
 # LIB_ROCKSDB := -L../../third-party/rocksdb
+LIB_MATRIXKV := -L../../third-party/matrixkv
 
 LIB := -L../../third-party/tbb
 
@@ -16,7 +17,7 @@ detail:
 	g++ -std=c++11 detail.cc -o detail
 
 matrixkv:
-	g++ -std=c++11 -I../../include $(SRC_MATRIXKV) $(SRC_YCSB) -o matrixkv_tester -L../../third-party/matrixkv -lrocksdb -lpmem -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
+	g++ -std=c++11 -I../../include $(SRC_MATRIXKV) $(SRC_YCSB) -o matrixkv_tester $(LIB) $(LIB_MATRIXKV) -lrocksdb -lpmem -ljemalloc -ldl -lpthread -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
 
 pebblesdb:
 	g++ -std=c++11 -I../../include $(SRC_PEBBLESDB) $(SRC_YCSB) -o pebblesdb_tester -L../../third-party/pebblesdb -lpebblesdb -lpthread -lsnappy

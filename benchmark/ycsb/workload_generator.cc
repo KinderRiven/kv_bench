@@ -215,7 +215,6 @@ void WorkloadGenerator::Run()
             }
         }
     }
-
 #ifdef PRINT_TOTAL_LATENCY
     // PRINT TOTAL THREAD LATENCY
     for (int i = 0; i < YCSB_NUM_OPT_TYPE; i++) {
