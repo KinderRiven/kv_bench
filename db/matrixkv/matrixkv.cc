@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-18 11:55:19
- * @LastEditTime: 2021-03-24 13:30:58
+ * @LastEditTime: 2021-03-24 13:42:25
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /kv_bench/db/matrixkv/matrixkv.cc
@@ -86,6 +86,13 @@ bool MatrixKV::Put(char* key, size_t key_length, char* value, size_t value_lengt
     rocksdb::Slice _key(key, key_length);
     rocksdb::Slice _value(value, value_length);
     rocksdb::Status _status = db_->Put(rocksdb::WriteOptions(), _key, _value);
+    return (_status.ok() == true) ? true : false;
+}
+
+bool RocksDB::Delete(char* key, size_t key_length)
+{
+    rocksdb::Slice _key(key, key_length);
+    rocksdb::Status _status = db_->Delete(rocksdb::WriteOptions(), _key);
     return (_status.ok() == true) ? true : false;
 }
 
