@@ -124,6 +124,16 @@ int main(int argc, char* argv[])
     sprintf(_result_path, "%04d%02d%02d_%02d%02d%02d", 1900 + _lt->tm_year, _lt->tm_mon, _lt->tm_mday, _lt->tm_hour, _lt->tm_min, _lt->tm_sec);
     mkdir(_result_path, 0777);
 
+    printf("------------------------\n");
+    printf("| DB_SIZE:%zuGB\n", g_dbsize / (1024 * 1024 * 1024));
+    printf("| NUM_THREAD:%zu\n", g_num_threads);
+    printf("| KV_LEN:%zu/%zu\n", g_key_length, g_value_length);
+    printf("| SSD_PATH:%s\n", g_ssd_path);
+    printf("| PMEM_PATH:%s\n", g_pmem_path);
+    printf("| BENCHMARK:%s\n", g_benchmark_type);
+    printf("| PSIZE:%.2f\n", g_psize);
+    printf("------------------------\n");
+
     struct workload_options _wopt;
     _wopt.key_length = g_key_length;
     _wopt.value_length = g_value_length;
