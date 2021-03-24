@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-18 11:55:19
- * @LastEditTime: 2021-03-24 13:19:19
+ * @LastEditTime: 2021-03-24 13:30:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /kv_bench/db/matrixkv/matrixkv.cc
@@ -73,6 +73,12 @@ MatrixKV::MatrixKV(kv_benchmark::Options& options)
 MatrixKV::~MatrixKV()
 {
     delete db_;
+}
+
+void MatrixKV::Close()
+{
+    printf("MatrixKV::Close\n");
+    db_->Close();
 }
 
 bool MatrixKV::Put(char* key, size_t key_length, char* value, size_t value_length)
