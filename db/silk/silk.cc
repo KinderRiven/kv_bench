@@ -65,7 +65,7 @@ SILKDB::~SILKDB()
 void SILKDB::Close()
 {
     printf("SILKDB::Close\n");
-    db_->Close();
+    // db_->Close();
 }
 
 bool SILKDB::Put(char* key, size_t key_length, char* value, size_t value_length)
