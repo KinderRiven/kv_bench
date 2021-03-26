@@ -21,9 +21,10 @@ public:
     kv_benchmark::DB* db;
 };
 
+/////////////////// TEST //////////////////////////
 // --btype
 // benchmark type
-// warmup, ycsb-a, ycsb-b, ycsb-c, ycsb-d, ycsb-e, ycsb-f
+// warmup, write, ycsb-a, ycsb-b, ycsb-c, ycsb-d, ycsb-e, ycsb-f
 static char g_benchmark_type[128] = "warmup";
 
 // 0 is unifrom skew
@@ -57,6 +58,14 @@ static size_t g_dbsize = 10UL * 1024 * 1024 * 1024;
 // --psize
 // test size = g_psize * dbsize
 static double g_psize = 0.2;
+
+/////////////////// DB //////////////////////////
+// --write_buffer_size
+// MemTable Size (MB)
+static size_t g_wbuffer_size = 64;
+
+// --num_backend_thread
+static int g_num_backend_thread = 1;
 
 static void start_workload(struct workload_options* options)
 {
@@ -93,6 +102,10 @@ int main(int argc, char* argv[])
             g_value_length = n;
         } else if (sscanf(argv[i], "--num_thread=%llu%c", &n, &junk) == 1) {
             g_num_threads = n;
+        } else if (sscanf(argv[i], "--write_buffer_size=%llu%c", &n, &junk) == 1) {
+            g_wbuffer_size = n * 1024 * 1024;
+        } else if (sscanf(argv[i], "--num_backend_thread=%llu%c", &n, &junk) == 1) {
+            g_num_backend_thread = n;
         } else if (sscanf(argv[i], "--dbsize=%llu%c", &n, &junk) == 1) { // GB
             g_dbsize = n * (1024 * 1024 * 1024);
         } else if (sscanf(argv[i], "--psize=%lf%c", &f, &junk) == 1) { // GB
@@ -115,6 +128,8 @@ int main(int argc, char* argv[])
     kv_benchmark::Options _options;
     _options.nvm_path.assign(g_pmem_path);
     _options.db_path.assign(g_ssd_path);
+    _options.write_buffer_size = g_wbuffer_size;
+    _options.num_backend_thread = g_num_backend_thread;
     kv_benchmark::DB::Open(_options, &_db);
 
     // CREATE RESULT SAVE PATH
@@ -146,6 +161,15 @@ int main(int argc, char* argv[])
         // 100% SEQ WRITE FOR WARM UP
         strcpy(_wopt.name, "WARMUP");
         _wopt.type = YCSB_SEQ_LOAD | g_zipf;
+        _wopt.workload_size = g_dbsize;
+        _wopt.num_threads = 1; // WE ONLY USE ONE THREAD TO WARM UP
+        start_workload(&_wopt);
+    }
+
+    if (strcmp(g_benchmark_type, "write") == 0) {
+        // 100% SEQ WRITE FOR WARM UP
+        strcpy(_wopt.name, "WARMUP");
+        _wopt.type = YCSB_RANDOM_LOAD | g_zipf;
         _wopt.workload_size = g_dbsize;
         _wopt.num_threads = 1; // WE ONLY USE ONE THREAD TO WARM UP
         start_workload(&_wopt);

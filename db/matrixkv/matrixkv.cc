@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-18 11:55:19
- * @LastEditTime: 2021-03-24 13:54:42
+ * @LastEditTime: 2021-03-26 10:49:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /kv_bench/db/matrixkv/matrixkv.cc
@@ -21,6 +21,7 @@ MatrixKV::MatrixKV(kv_benchmark::Options& options)
 
     rocksdb::NvmSetup* _nvm_opt = new rocksdb::NvmSetup();
     _nvm_opt->pmem_path = "/home/pmem0";
+
     _nvm_opt->Level0_column_compaction_trigger_size = 2UL * 1024 * 1024 * 1024;
     _nvm_opt->Level0_column_compaction_slowdown_size = 2UL * 1024 * 1024 * 1024 + 512UL * 1024 * 1024;
     _nvm_opt->Level0_column_compaction_stop_size = 3UL * 1024 * 1024 * 1024;
@@ -37,6 +38,8 @@ MatrixKV::MatrixKV(kv_benchmark::Options& options)
     rocksdb::BlockBasedTableOptions _table_options;
     _table_options.block_cache = _cache;
     _options.table_factory.reset(NewBlockBasedTableFactory(_table_options));
+
+    _options.write_buffer_size = options.write_buffer_size;
 
     // direct read/write
     _options.use_direct_reads = true;
@@ -62,9 +65,9 @@ MatrixKV::MatrixKV(kv_benchmark::Options& options)
     // _options.compaction_filter;
     // _options.compaction_filter_factory;
     _options.target_file_size_base = 64 * 1024 * 1024; // default
-    _options.target_file_size_multiplier = 1;
-    _options.max_compaction_bytes = 0;
-    _options.max_background_compactions = 1; // only one backend compaction thread
+    // _options.target_file_size_multiplier = 1;
+    // _options.max_compaction_bytes = 0;
+    _options.max_background_compactions = options.num_backend_thread; // only one backend compaction thread
 
     rocksdb::DB::Open(_options, options.db_path, &db_);
     assert(db_ != nullptr);

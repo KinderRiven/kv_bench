@@ -13,7 +13,7 @@ RocksDB::RocksDB(kv_benchmark::Options& options)
 
     // memtable
     // write buffer size
-    _options.write_buffer_size = 64 * 1024 * 1024;
+    _options.write_buffer_size = options.write_buffer_size;
 
     // cache
     // set block cache size
@@ -48,9 +48,9 @@ RocksDB::RocksDB(kv_benchmark::Options& options)
     // _options.compaction_filter;
     // _options.compaction_filter_factory;
     _options.target_file_size_base = 64 * 1024 * 1024; // default
-    _options.target_file_size_multiplier = 1;
-    _options.max_compaction_bytes = 0;
-    _options.max_background_compactions = 1; // only one backend compaction thread
+    // _options.target_file_size_multiplier = 1;
+    // _options.max_compaction_bytes = 0;
+    _options.max_background_compactions = options.num_backend_thread; // only one backend compaction thread
 
     // Open an DB
     rocksdb::DB::Open(_options, options.db_path, &db_);
