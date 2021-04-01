@@ -27,6 +27,7 @@ RocksDB::RocksDB(kv_benchmark::Options& options)
     _options.use_direct_reads = true;
     _options.use_direct_io_for_flush_and_compaction = true;
     _options.wal_bytes_per_sync = false; // foce sync log
+    _options.allow_concurrent_memtable_write = true;
 
     // compaction
     // _options.level0_file_num_compaction_trigger = 10;
@@ -52,6 +53,11 @@ RocksDB::RocksDB(kv_benchmark::Options& options)
     // _options.max_compaction_bytes = 0;
     _options.max_background_compactions = options.num_backend_thread; // only one backend compaction thread
 
+    wopt_ = rocksdb::WriteOptions();
+    wopt_.disableWAL = true;
+    ropt_ = rocksdb::ReadOptions();
+    fopt_ = rocksdb::FlushOptions();
+
     // Open an DB
     rocksdb::DB::Open(_options, options.db_path, &db_);
     assert(db_ != nullptr);
@@ -72,14 +78,14 @@ bool RocksDB::Put(char* key, size_t key_length, char* value, size_t value_length
 {
     rocksdb::Slice _key(key, key_length);
     rocksdb::Slice _value(value, value_length);
-    rocksdb::Status _status = db_->Put(rocksdb::WriteOptions(), _key, _value);
+    rocksdb::Status _status = db_->Put(wopt_, _key, _value);
     return (_status.ok() == true) ? true : false;
 }
 
 bool RocksDB::Delete(char* key, size_t key_length)
 {
     rocksdb::Slice _key(key, key_length);
-    rocksdb::Status _status = db_->Delete(rocksdb::WriteOptions(), _key);
+    rocksdb::Status _status = db_->Delete(wopt_, _key);
     return (_status.ok() == true) ? true : false;
 }
 
@@ -87,7 +93,7 @@ bool RocksDB::Update(char* key, size_t key_length, char* value, size_t value_len
 {
     rocksdb::Slice _key(key, key_length);
     rocksdb::Slice _value(value, value_length);
-    rocksdb::Status _status = db_->Put(rocksdb::WriteOptions(), _key, _value);
+    rocksdb::Status _status = db_->Put(wopt_, _key, _value);
     return (_status.ok() == true) ? true : false;
 }
 
@@ -95,7 +101,7 @@ bool RocksDB::Get(char* key, size_t key_length, char* value, size_t& value_lengt
 {
     rocksdb::Slice _key(key, key_length);
     std::string _value;
-    rocksdb::Status _status = db_->Get(rocksdb::ReadOptions(), _key, &_value);
+    rocksdb::Status _status = db_->Get(ropt_, _key, &_value);
     value_length = _value.size();
     memcpy(value, _value.data(), value_length);
     return (_status.ok() == true) ? true : false;

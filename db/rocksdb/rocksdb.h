@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-03-18 11:55:19
- * @LastEditTime: 2021-03-18 19:07:01
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-04-01 22:27:12
+ * @LastEditors: Han Shukai
  * @Description: In User Settings Edit
  * @FilePath: /kv_bench/db/rocksdb/rocksdb.h
  */
@@ -49,6 +49,12 @@ private:
     // rocksdb::WriteOptions wopt_;
     // rocksdb::ReadOptions ropt_;
     rocksdb::DB* db_;
+
+    rocksdb::WriteOptions wopt_;
+
+    rocksdb::ReadOptions ropt_;
+
+    rocksdb::FlushOptions fopt_;
 };
 };
 
