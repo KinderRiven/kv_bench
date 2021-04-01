@@ -161,7 +161,7 @@ int main(int argc, char* argv[])
         // 100% SEQ WRITE FOR WARM UP
         strcpy(_wopt.name, "WARMUP");
         _wopt.type = YCSB_SEQ_LOAD | g_zipf;
-        _wopt.workload_size = (size_t)(g_psize * g_dbsize);
+        _wopt.workload_size = g_dbsize;
         _wopt.num_threads = 1; // WE ONLY USE ONE THREAD TO WARM UP
         start_workload(&_wopt);
     }
@@ -170,7 +170,7 @@ int main(int argc, char* argv[])
         // 100% SEQ WRITE FOR WARM UP
         strcpy(_wopt.name, "WRITE");
         _wopt.type = YCSB_RANDOM_LOAD | g_zipf;
-        _wopt.workload_size = g_dbsize;
+        _wopt.workload_size = (size_t)(g_psize * g_dbsize);
         _wopt.num_threads = g_num_threads; // WE ONLY USE ONE THREAD TO WARM UP
         start_workload(&_wopt);
     }
