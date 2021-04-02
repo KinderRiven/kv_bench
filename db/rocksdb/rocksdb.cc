@@ -10,6 +10,7 @@ RocksDB::RocksDB(kv_benchmark::Options& options)
 
     // compression set
     _options.compression = rocksdb::kNoCompression;
+    // _options.compression = rocksdb::kBZip2Compression;
 
     // memtable
     // write buffer size
@@ -25,7 +26,7 @@ RocksDB::RocksDB(kv_benchmark::Options& options)
     // IO handle
     // direct read/write
     _options.use_direct_reads = true;
-    _options.use_direct_io_for_flush_and_compaction = true;
+    _options.use_direct_io_for_flush_and_compaction = false;
     _options.wal_bytes_per_sync = false; // foce sync log
     _options.allow_concurrent_memtable_write = true;
 
@@ -43,7 +44,8 @@ RocksDB::RocksDB(kv_benchmark::Options& options)
     // via CompactFiles().
     // Not supported in ROCKSDB_LITE
     // *** kCompactionStyleNone = 0x3,
-    _options.compaction_style = rocksdb::kCompactionStyleLevel;
+    // _options.compaction_style = rocksdb::kCompactionStyleLevel;
+    _options.compaction_style = rocksdb::kCompactionStyleUniversal;
     // _options.compaction_options_universal;
     // _options.disable_auto_compactions;
     // _options.compaction_filter;
@@ -55,7 +57,9 @@ RocksDB::RocksDB(kv_benchmark::Options& options)
 
     wopt_ = rocksdb::WriteOptions();
     wopt_.disableWAL = true;
+
     ropt_ = rocksdb::ReadOptions();
+
     fopt_ = rocksdb::FlushOptions();
 
     // Open an DB
