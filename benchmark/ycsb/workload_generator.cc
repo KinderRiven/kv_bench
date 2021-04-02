@@ -151,7 +151,7 @@ static void thread_task(thread_param_t* param)
     }
     _t1.Stop();
 
-    uint64_t _iops = 1000000000UL / _t1.Get();
+    uint64_t _iops = 1000000000UL * _count / _t1.Get();
     printf("*** THREAD%02d FINISHED [TIME:%.2f][IOPS:%llu]\n", _thread_id, _t1.GetSeconds(), _iops);
 }
 
