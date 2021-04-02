@@ -72,9 +72,15 @@ static void start_workload(struct workload_options* options)
     uint64_t _key_base = 1;
     kv_benchmark::YCSB* _benchmarks[32];
     size_t _range = (options->dbsize / options->value_length);
+    size_t _each_range = _range / g_num_threads;
 
     for (int i = 0; i < options->num_threads; i++) {
-        _benchmarks[i] = new kv_benchmark::YCSB(options->type, _key_base, _range, options->key_length, options->value_length);
+        if (strcmp(g_benchmark_type, "warmup") == 0) {
+            _benchmarks[i] = new kv_benchmark::YCSB(options->type, _key_base, _key_base + _each_range, options->key_length, options->value_length);
+            _key_base += _each_range;
+        } else {
+            _benchmarks[i] = new kv_benchmark::YCSB(options->type, _key_base, _range, options->key_length, options->value_length);
+        }
     }
 
     kv_benchmark::generator_parameter _gparam;
