@@ -50,7 +50,7 @@ LINK_MATRIXKV := -L$(LIB_MATRIXKV) -lrocksdb -ljemalloc -lsnappy -lgflags -lz -l
 
 # SILK
 
-all: pebblesdb rocksdb matrixkv
+all: clean pebblesdb rocksdb matrixkv
 
 rocksdb:
 	$(CC) --std=c++11 main.cc -o rocksdb_tester $(INC_ROCKSDB) $(SRC_ROCKSDB) $(LINK_ROCKSDB) $(LINK_FLAGS)
