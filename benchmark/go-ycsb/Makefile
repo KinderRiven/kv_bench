@@ -54,13 +54,13 @@ LINK_MATRIXKV := -L$(LIB_MATRIXKV) -lrocksdb -ljemalloc -lsnappy -lgflags -lz -l
 all: clean pebblesdb rocksdb matrixkv
 
 rocksdb:
-	$(CC) --std=c++11 main.cc -o rocksdb_tester $(INC_ROCKSDB) $(SRC_ROCKSDB) $(LINK_ROCKSDB) $(LIB_ROCKSDB)
+	$(CC) --std=c++11 main.cc -o rocksdb_tester $(INC_ROCKSDB) $(SRC_ROCKSDB) $(LINK_ROCKSDB)
 
 pebblesdb:
-	$(CC) --std=c++11 main.cc -o pebblesdb_tester $(INC_PEBBLESDB) $(SRC_PEBBLESDB) $(LINK_PEBBLESDB) $(LIB_PEBBLESDB)
+	$(CC) --std=c++11 main.cc -o pebblesdb_tester $(INC_PEBBLESDB) $(SRC_PEBBLESDB) $(LINK_PEBBLESDB)
 
 matrixkv:
-	$(CC) --std=c++11 main.cc -o matrixkv_tester $(INC_MATRIXKV) $(SRC_MATRIXKV) $(LINK_MATRIXKV) $(LIB_MATRIXKV)
+	$(CC) --std=c++11 main.cc -o matrixkv_tester $(INC_MATRIXKV) $(SRC_MATRIXKV) $(LINK_MATRIXKV)
 
 clean:
 	rm -rf rocksdb_tester pebblesdb_tester matrixkv_tester
