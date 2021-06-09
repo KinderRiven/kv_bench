@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-03-18 11:55:19
  * @LastEditors: Han Shukai
- * @LastEditTime: 2021-06-09 18:55:07
+ * @LastEditTime: 2021-06-09 18:56:01
  * @FilePath: /kv_bench/db/leveldb/leveldb.h
  */
 #ifndef INCLUDE_DB_LEVELDB_H_
@@ -29,6 +29,8 @@ public:
     // Update key-value pair which has existed in database,
     // If "key" not exists, it will return false.
     bool Update(char* key, size_t key_length, char* value, size_t value_length);
+
+    bool Delete(char* key, size_t key_length);
 
 public:
     // Get key-value pair from database.

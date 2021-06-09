@@ -1,3 +1,9 @@
+/*
+ * @Date: 2021-03-18 11:55:19
+ * @LastEditors: Han Shukai
+ * @LastEditTime: 2021-06-09 18:56:56
+ * @FilePath: /kv_bench/db/novelsm/novelsm.cc
+ */
 #include "novelsm.h"
 
 using namespace kv_benchmark;
@@ -33,6 +39,11 @@ bool NoveLSM::Update(char* key, size_t key_length, char* value, size_t value_len
     leveldb::Slice _value(value, value_length);
     leveldb::Status _status = db_->Put(leveldb::WriteOptions(), _key, _value);
     return (_status.ok() == true) ? true : false;
+}
+
+bool NoveLSM::Delete(char* key, size_t key_length)
+{
+    return true;
 }
 
 bool NoveLSM::Get(char* key, size_t key_length, char* value, size_t& value_length)

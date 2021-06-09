@@ -1,3 +1,9 @@
+/*
+ * @Date: 2021-03-18 11:55:19
+ * @LastEditors: Han Shukai
+ * @LastEditTime: 2021-06-09 18:56:10
+ * @FilePath: /kv_bench/db/leveldb/leveldb.cc
+ */
 #include "leveldb.h"
 
 using namespace kv_benchmark;
@@ -33,6 +39,11 @@ bool LevelDB::Update(char* key, size_t key_length, char* value, size_t value_len
     leveldb::Slice _value(value, value_length);
     leveldb::Status _status = db_->Put(leveldb::WriteOptions(), _key, _value);
     return (_status.ok() == true) ? true : false;
+}
+
+bool LevelDB::Delete(char* key, size_t key_length)
+{
+    return false;
 }
 
 bool LevelDB::Get(char* key, size_t key_length, char* value, size_t& value_length)
