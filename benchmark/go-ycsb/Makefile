@@ -28,7 +28,7 @@ LINK_FLAGS := -L$(LIB_TBB_PATH) -lpthread -lrt -lnuma -ldl -luuid -lm -lisal -lt
 INC_LEVELDB := -I../../db/leveldb -I../../include
 SRC_LEVELDB := ../../db/leveldb/leveldb.cc ../../db/leveldb/db.cc
 LIB_LEVELDB := $(LIB_PATH)/leveldb
-LINK_LEVELDB := -L$(LIB_LEVELDB) -lleveldb
+LINK_LEVELDB := -L$(LIB_LEVELDB) -lleveldb -ljemalloc -lsnappy 
 
 # RocksDB
 INC_ROCKSDB := -I../../db/rocksdb -I../../include
@@ -40,7 +40,7 @@ LINK_ROCKSDB := -L$(LIB_ROCKSDB) -lrocksdb -ljemalloc -lsnappy -lgflags -lz -lbz
 INC_NOVELSM := -I../../db/novelsm -I../../include
 SRC_NOVELSM := ../../db/novelsm/novelsm.cc ../../db/novelsm/db.cc
 LIB_NOVELSM := $(LIB_PATH)/novelsm
-LINK_NOVELSM := -L$(LIB_NOVELSM) -lleveldb
+LINK_NOVELSM := -L$(LIB_NOVELSM) -lleveldb -ljemalloc -lsnappy 
 
 # PebblesDB
 INC_PEBBLESDB := -I../../db/pebblesdb -I../../include
