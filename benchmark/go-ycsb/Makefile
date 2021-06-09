@@ -24,6 +24,12 @@ LINK_PMDK := -L$(LIB_PMDK_PATH) -lpmem -lpmemobj -lpmempool
 
 LINK_FLAGS := -L$(LIB_TBB_PATH) -lpthread -lrt -lnuma -ldl -luuid -lm -lisal -ltbb
 
+# LevelDB
+INC_LEVELDB := -I../../db/leveldb -I../../include
+SRC_LEVELDB := ../../db/leveldb/leveldb.cc ../../db/leveldb/db.cc
+LIB_LEVELDB := $(LIB_PATH)/leveldb
+LINK_LEVELDB := -L$(LIB_LEVELDB) -lleveldb
+
 # RocksDB
 INC_ROCKSDB := -I../../db/rocksdb -I../../include
 SRC_ROCKSDB := ../../db/rocksdb/rocksdb.cc ../../db/rocksdb/db.cc
@@ -33,6 +39,8 @@ LINK_ROCKSDB := -L$(LIB_ROCKSDB) -lrocksdb -ljemalloc -lsnappy -lgflags -lz -lbz
 # NoveLSM
 INC_NOVELSM := -I../../db/novelsm -I../../include
 SRC_NOVELSM := ../../db/novelsm/novelsm.cc ../../db/novelsm/db.cc
+LIB_NOVELSM := $(LIB_PATH)/novelsm
+LINK_NOVELSM := -L$(LIB_NOVELSM) -lleveldb
 
 # PebblesDB
 INC_PEBBLESDB := -I../../db/pebblesdb -I../../include
@@ -50,7 +58,7 @@ LINK_MATRIXKV := -L$(LIB_MATRIXKV) -lrocksdb -ljemalloc -lsnappy -lgflags -lz -l
 
 # SILK
 
-all: clean pebblesdb rocksdb matrixkv
+all: clean leveldb novelsm pebblesdb rocksdb matrixkv
 
 rocksdb:
 	$(CC) --std=c++11 main.cc -o rocksdb_tester $(INC_ROCKSDB) $(SRC_ROCKSDB) $(LINK_ROCKSDB) $(LINK_FLAGS)
@@ -61,8 +69,14 @@ pebblesdb:
 matrixkv:
 	$(CC) --std=c++11 main.cc -o matrixkv_tester $(INC_MATRIXKV) $(SRC_MATRIXKV) $(LINK_MATRIXKV) $(LINK_FLAGS)
 
+novelsm:
+	$(CC) --std=c++11 main.cc -o novelsm_tester $(INC_NOVELSM) $(SRC_NOVELSM) $(LINK_NOVELSM) $(LINK_FLAGS)
+
+leveldb:
+	$(CC) --std=c++11 main.cc -o leveldb_tester $(INC_LEVELDB) $(SRC_LEVELDB) $(LINK_LEVELDB) $(LINK_FLAGS)
+
 clean:
-	rm -rf rocksdb_tester pebblesdb_tester matrixkv_tester
+	rm -rf rocksdb_tester pebblesdb_tester matrixkv_tester novelsm_tester leveldb_tester
 
 export:
 	export LD_LIBRARY_PATH=/home/hanshukai/import_libs/pmdk/src/nondebug:/home/hanshukai/import_libs/spdk/build/lib:/home/hanshukai/import_libs/spdk/dpdk/build/lib:/home/hanshukai/SplitKV/third-party/tbb
