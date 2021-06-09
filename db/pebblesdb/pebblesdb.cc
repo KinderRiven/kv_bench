@@ -1,3 +1,9 @@
+/*
+ * @Date: 2021-03-18 11:55:19
+ * @LastEditors: Han Shukai
+ * @LastEditTime: 2021-06-09 15:07:58
+ * @FilePath: /kv_bench/db/pebblesdb/pebblesdb.cc
+ */
 #include "pebblesdb.h"
 
 using namespace kv_benchmark;
@@ -41,6 +47,11 @@ bool PebblesDB::Get(char* key, size_t key_length, char* value, size_t& value_len
     value_length = _value.size();
     memcpy(value, _value.data(), value_length);
     return (_status.ok() == true) ? true : false;
+}
+
+bool PebblesDB::Delete(char* key, size_t key_length)
+{
+    return false;
 }
 
 bool PebblesDB::Scan(char* key, size_t key_length, size_t scan_count)
