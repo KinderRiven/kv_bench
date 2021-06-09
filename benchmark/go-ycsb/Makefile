@@ -25,25 +25,25 @@ LINK_PMDK := -L$(LIB_PMDK_PATH) -lpmem -lpmemobj -lpmempool
 LINK_FLAGS := -L$(LIB_TBB_PATH) -lpthread -lrt -lnuma -ldl -luuid -lm -lisal -ltbb
 
 # RocksDB
-INC_ROCKSDB := -I../db/rocksdb
-SRC_ROCKSDB := ../db/rocksdb/rocksdb.cc ../db/rocksdb/db.cc
+INC_ROCKSDB := -I../../db/rocksdb
+SRC_ROCKSDB := ../../db/rocksdb/rocksdb.cc ../../db/rocksdb/db.cc
 LIB_ROCKSDB := $(LIB_PATH)/rocksdb
 LINK_ROCKSDB := -L$(LIB_ROCKSDB) -lrocksdb -ljemalloc -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
 
 # NoveLSM
-INC_NOVELSM := -I../db/novelsm 
-SRC_NOVELSM := ../db/novelsm/novelsm.cc ../db/novelsm/db.cc
+INC_NOVELSM := -I../../db/novelsm 
+SRC_NOVELSM := ../../db/novelsm/novelsm.cc ../../db/novelsm/db.cc
 
 # PebblesDB
-INC_PEBBLESDB := -I../db/pebblesdb 
-SRC_PEBBLESDB := ../db/pebblesdb/pebblesdb.cc ../db/pebblesdb/db.cc
+INC_PEBBLESDB := -I../../db/pebblesdb 
+SRC_PEBBLESDB := ../../db/pebblesdb/pebblesdb.cc ../../db/pebblesdb/db.cc
 LIB_PEBBLESDB := $(LIB_PATH)/pebblesdb
 LINK_PEBBLESDB := -L$(LIB_PEBBLESDB) -lpebblesdb -ljemalloc -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
 
 
 # MatrixKV
-INC_MATRIXKV := -I../db/matrixkv 
-SRC_MATRIXKV := ../db/matrixkv/matrixkv.cc ../db/matrixkv/db.cc
+INC_MATRIXKV := -I../../db/matrixkv 
+SRC_MATRIXKV := ../../db/matrixkv/matrixkv.cc ../../db/matrixkv/db.cc
 LIB_MATRIXKV := $(LIB_PATH)/matrixkv
 LINK_MATRIXKV := -L$(LIB_MATRIXKV) -lrocksdb -ljemalloc -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd $(LINK_PMDK)
 
