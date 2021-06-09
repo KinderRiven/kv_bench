@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-03-18 11:55:19
- * @LastEditTime: 2021-03-24 13:30:23
- * @LastEditors: your name
+ * @LastEditTime: 2021-06-09 15:06:29
+ * @LastEditors: Han Shukai
  * @Description: In User Settings Edit
  * @FilePath: /kv_bench/db/matrixkv/db.cc
  */
@@ -14,4 +14,9 @@ using namespace kv_benchmark;
 void DB::Open(Options& options, DB** dbptr)
 {
     *dbptr = new MatrixKV(options);
+}
+
+void DB::Close(DB* dbptr)
+{
+    delete dbptr;
 }

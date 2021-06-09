@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-17 11:58:39
  * @LastEditors: Han Shukai
- * @LastEditTime: 2021-06-09 15:04:40
+ * @LastEditTime: 2021-06-09 15:06:53
  * @FilePath: /kv_bench/benchmark/go-ycsb/main.cc
  */
 
@@ -290,6 +290,6 @@ int main(int argc, char** argv)
     DB::Open(_options, &_db);
     run_workload(g_ycsb_workload[0], _db);
     run_workload(g_ycsb_workload[1], _db);
-    _db->Close();
+    DB::Close(_db);
     return 0;
 }
