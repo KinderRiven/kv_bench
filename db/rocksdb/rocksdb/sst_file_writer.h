@@ -21,7 +21,7 @@
 #define ROCKSDB_DEPRECATED_FUNC __declspec(deprecated)
 #endif
 
-namespace ROCKSDB_NAMESPACE {
+namespace rocksdb {
 
 class Comparator;
 
@@ -34,8 +34,6 @@ struct ExternalSstFileInfo {
         largest_key(""),
         smallest_range_del_key(""),
         largest_range_del_key(""),
-        file_checksum(""),
-        file_checksum_func_name(""),
         sequence_number(0),
         file_size(0),
         num_entries(0),
@@ -52,8 +50,6 @@ struct ExternalSstFileInfo {
         largest_key(_largest_key),
         smallest_range_del_key(""),
         largest_range_del_key(""),
-        file_checksum(""),
-        file_checksum_func_name(""),
         sequence_number(_sequence_number),
         file_size(_file_size),
         num_entries(_num_entries),
@@ -66,8 +62,6 @@ struct ExternalSstFileInfo {
   std::string
       smallest_range_del_key;  // smallest range deletion user key in file
   std::string largest_range_del_key;  // largest range deletion user key in file
-  std::string file_checksum;          // sst file checksum;
-  std::string file_checksum_func_name;  // The name of file checksum function
   SequenceNumber sequence_number;     // sequence number of all keys in file
   uint64_t file_size;                 // file size in bytes
   uint64_t num_entries;               // number of entries in file
@@ -83,9 +77,8 @@ class SstFileWriter {
   // be ingested into this column_family, note that passing nullptr means that
   // the column_family is unknown.
   // If invalidate_page_cache is set to true, SstFileWriter will give the OS a
-  // hint that this file pages is not needed every time we write 1MB to the
-  // file. To use the rate limiter an io_priority smaller than IO_TOTAL can be
-  // passed.
+  // hint that this file pages is not needed every time we write 1MB to the file.
+  // To use the rate limiter an io_priority smaller than IO_TOTAL can be passed.
   SstFileWriter(const EnvOptions& env_options, const Options& options,
                 ColumnFamilyHandle* column_family = nullptr,
                 bool invalidate_page_cache = true,
@@ -140,6 +133,6 @@ class SstFileWriter {
   struct Rep;
   std::unique_ptr<Rep> rep_;
 };
-}  // namespace ROCKSDB_NAMESPACE
+}  // namespace rocksdb
 
 #endif  // !ROCKSDB_LITE

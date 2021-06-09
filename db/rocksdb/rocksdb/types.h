@@ -8,17 +8,14 @@
 #include <stdint.h>
 #include "rocksdb/slice.h"
 
-namespace ROCKSDB_NAMESPACE {
+namespace rocksdb {
 
 // Define all public custom types here.
 
 // Represents a sequence number in a WAL file.
 typedef uint64_t SequenceNumber;
 
-const SequenceNumber kMinUnCommittedSeq = 1;  // 0 is always committed
-
 // User-oriented representation of internal key types.
-// Ordering of this enum entries should not change.
 enum EntryType {
   kEntryPut,
   kEntryDelete,
@@ -26,7 +23,6 @@ enum EntryType {
   kEntryMerge,
   kEntryRangeDeletion,
   kEntryBlobIndex,
-  kEntryDeleteWithTimestamp,
   kEntryOther,
 };
 
@@ -36,9 +32,11 @@ struct FullKey {
   SequenceNumber sequence;
   EntryType type;
 
-  FullKey() : sequence(0) {}  // Intentionally left uninitialized (for speed)
+  FullKey()
+      : sequence(0)
+  {}  // Intentionally left uninitialized (for speed)
   FullKey(const Slice& u, const SequenceNumber& seq, EntryType t)
-      : user_key(u), sequence(seq), type(t) {}
+      : user_key(u), sequence(seq), type(t) { }
   std::string DebugString(bool hex = false) const;
 
   void clear() {
@@ -53,4 +51,4 @@ struct FullKey {
 // internal_key is alive.
 bool ParseFullKey(const Slice& internal_key, FullKey* result);
 
-}  // namespace ROCKSDB_NAMESPACE
+}  //  namespace rocksdb

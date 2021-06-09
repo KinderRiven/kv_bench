@@ -9,19 +9,20 @@
 #include <climits>
 #include <vector>
 
-namespace ROCKSDB_NAMESPACE {
+namespace rocksdb {
 
 //
 // Algorithm used to make a compaction request stop picking new files
 // into a single compaction run
 //
 enum CompactionStopStyle {
-  kCompactionStopStyleSimilarSize,  // pick files of similar size
-  kCompactionStopStyleTotalSize     // total size of picked files > next file
+  kCompactionStopStyleSimilarSize, // pick files of similar size
+  kCompactionStopStyleTotalSize    // total size of picked files > next file
 };
 
 class CompactionOptionsUniversal {
  public:
+
   // Percentage flexibility while comparing file size. If the candidate file(s)
   // size is 1% smaller than the next file's size, then include next file into
   // this candidate set. // Default: 1
@@ -83,4 +84,4 @@ class CompactionOptionsUniversal {
         allow_trivial_move(false) {}
 };
 
-}  // namespace ROCKSDB_NAMESPACE
+}  // namespace rocksdb
