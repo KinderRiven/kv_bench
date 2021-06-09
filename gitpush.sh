@@ -1,12 +1,12 @@
 ###
  # @Author: your name
  # @Date: 2021-03-18 11:55:19
- # @LastEditTime: 2021-03-18 13:22:32
- # @LastEditors: Please set LastEditors
+ # @LastEditTime: 2021-06-09 14:44:08
+ # @LastEditors: Han Shukai
  # @Description: In User Settings Edit
  # @FilePath: /kv_bench/gitpush.sh
 ### 
-git add benchmark/*.cc
+git add benchmark
 git add benchmark/Makefile
 git add db
 git add include
