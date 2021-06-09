@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-17 11:58:39
  * @LastEditors: Han Shukai
- * @LastEditTime: 2021-06-09 15:06:53
+ * @LastEditTime: 2021-06-09 15:20:25
  * @FilePath: /kv_bench/benchmark/go-ycsb/main.cc
  */
 
@@ -287,6 +287,8 @@ int main(int argc, char** argv)
 {
     DB* _db = nullptr;
     Options _options;
+    _options.nvm_path = "/home/pmem0";
+    _options.db_path ="/home/hanshukai/mount/4510/db";
     DB::Open(_options, &_db);
     run_workload(g_ycsb_workload[0], _db);
     run_workload(g_ycsb_workload[1], _db);
