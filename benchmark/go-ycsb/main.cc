@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-17 11:58:39
  * @LastEditors: Han Shukai
- * @LastEditTime: 2021-06-09 14:17:55
+ * @LastEditTime: 2021-06-09 15:00:58
  * @FilePath: /kv_bench/benchmark/go-ycsb/main.cc
  */
 
@@ -36,6 +36,7 @@
 
 #include "db.h"
 #include "header.h"
+#include "timer.h"
 #include "options.h"
 
 using namespace kv_benchmark;
