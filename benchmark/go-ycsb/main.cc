@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-17 11:58:39
  * @LastEditors: Han Shukai
- * @LastEditTime: 2021-06-09 19:03:05
+ * @LastEditTime: 2021-06-10 19:39:07
  * @FilePath: /kv_bench/benchmark/go-ycsb/main.cc
  */
 
@@ -287,6 +287,7 @@ int main(int argc, char** argv)
 {
     DB* _db = nullptr;
     Options _options;
+    _options.write_buffer_size = 1UL * 1024 * 1024 * 1024;
     _options.nvm_path = "/home/pmem0";
     _options.db_path = "/home/hanshukai/mount/4510/db";
     DB::Open(_options, &_db);
