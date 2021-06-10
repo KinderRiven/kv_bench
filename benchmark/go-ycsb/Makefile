@@ -67,23 +67,23 @@ LINK_SILK := -L$(LIB_SILK) -lrocksdb -ljemalloc -lsnappy -lgflags -lz -lbz2 -llz
 
 all: clean leveldb novelsm pebblesdb rocksdb matrixkv silk
 
+leveldb:
+	$(CC) --std=c++11 main.cc -o leveldb_tester $(INC_LEVELDB) $(SRC_LEVELDB) $(LINK_LEVELDB) $(LINK_FLAGS)
+
 rocksdb:
 	$(CC) --std=c++11 main.cc -o rocksdb_tester $(INC_ROCKSDB) $(SRC_ROCKSDB) $(LINK_ROCKSDB) $(LINK_FLAGS)
 
 pebblesdb:
 	$(CC) --std=c++11 main.cc -o pebblesdb_tester $(INC_PEBBLESDB) $(SRC_PEBBLESDB) $(LINK_PEBBLESDB) $(LINK_FLAGS)
 
+silk:
+	$(CC) --std=c++11 main.cc -o silk_tester $(INC_SILK) $(SRC_SILK) $(LINK_SILK) $(LINK_FLAGS)
+
 matrixkv:
 	$(CC) --std=c++11 main.cc -o matrixkv_tester $(INC_MATRIXKV) $(SRC_MATRIXKV) $(LINK_MATRIXKV) $(LINK_FLAGS)
 
 novelsm:
 	$(CC) --std=c++11 main.cc -o novelsm_tester $(INC_NOVELSM) $(SRC_NOVELSM) $(LINK_NOVELSM) $(LINK_FLAGS)
-
-leveldb:
-	$(CC) --std=c++11 main.cc -o leveldb_tester $(INC_LEVELDB) $(SRC_LEVELDB) $(LINK_LEVELDB) $(LINK_FLAGS)
-
-silk:
-	$(CC) --std=c++11 main.cc -o silk_tester $(INC_SILK) $(SRC_SILK) $(LINK_SILK) $(LINK_FLAGS)
 
 clean:
 	rm -rf rocksdb_tester pebblesdb_tester matrixkv_tester novelsm_tester leveldb_tester silk_tester
