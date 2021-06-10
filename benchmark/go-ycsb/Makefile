@@ -54,9 +54,16 @@ SRC_MATRIXKV := ../../db/matrixkv/matrixkv.cc ../../db/matrixkv/db.cc
 LIB_MATRIXKV := $(LIB_PATH)/matrixkv
 LINK_MATRIXKV := -L$(LIB_MATRIXKV) -lrocksdb -ljemalloc -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd $(LINK_PMDK)
 
+# SILK
+INC_SILK := -I../../db/silk -I../../include
+SRC_SILK := ../../db/silk/silk.cc ../../db/silk/db.cc
+LIB_SILK := $(LIB_PATH)/silk
+LINK_SILK := -L$(LIB_SILK) -lrocksdb -ljemalloc -lsnappy -lgflags -lz -lbz2 -llz4 -lzstd
+
 # SplitKV
 
-# SILK
+
+# SpanDB
 
 all: clean leveldb novelsm pebblesdb rocksdb matrixkv
 
@@ -74,6 +81,9 @@ novelsm:
 
 leveldb:
 	$(CC) --std=c++11 main.cc -o leveldb_tester $(INC_LEVELDB) $(SRC_LEVELDB) $(LINK_LEVELDB) $(LINK_FLAGS)
+
+silk:
+	$(CC) --std=c++11 main.cc -o silk_tester $(INC_SILK) $(SRC_SILK) $(LINK_SILK) $(LINK_FLAGS)
 
 clean:
 	rm -rf rocksdb_tester pebblesdb_tester matrixkv_tester novelsm_tester leveldb_tester
