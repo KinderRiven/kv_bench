@@ -65,7 +65,7 @@ LINK_SILK := -L$(LIB_SILK) -lrocksdb -ljemalloc -lsnappy -lgflags -lz -lbz2 -llz
 
 # SpanDB
 
-all: clean leveldb novelsm pebblesdb rocksdb matrixkv
+all: clean leveldb novelsm pebblesdb rocksdb matrixkv silk
 
 rocksdb:
 	$(CC) --std=c++11 main.cc -o rocksdb_tester $(INC_ROCKSDB) $(SRC_ROCKSDB) $(LINK_ROCKSDB) $(LINK_FLAGS)
