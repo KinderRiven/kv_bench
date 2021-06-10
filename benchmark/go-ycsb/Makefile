@@ -86,7 +86,7 @@ silk:
 	$(CC) --std=c++11 main.cc -o silk_tester $(INC_SILK) $(SRC_SILK) $(LINK_SILK) $(LINK_FLAGS)
 
 clean:
-	rm -rf rocksdb_tester pebblesdb_tester matrixkv_tester novelsm_tester leveldb_tester
+	rm -rf rocksdb_tester pebblesdb_tester matrixkv_tester novelsm_tester leveldb_tester silk_tester
 
 export:
 	export LD_LIBRARY_PATH=/home/hanshukai/import_libs/pmdk/src/nondebug:/home/hanshukai/import_libs/spdk/build/lib:/home/hanshukai/import_libs/spdk/dpdk/build/lib:/home/hanshukai/SplitKV/third-party/tbb
