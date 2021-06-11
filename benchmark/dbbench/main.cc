@@ -47,14 +47,14 @@ static void start_workload(struct workload_options* options)
 int main(int argc, char* argv[])
 {
     // DB opation
-    char _ssd_path[128] = "/home/hanshukai/dir1/dbdir";
+    char _ssd_path[128] = "/home/hanshukai/mount/4800/db";
     char _pmem_path[128] = "/home/pmem0";
 
     // Workload Parameter
-    int _num_threads = 1;
+    int _num_threads = 8;
     size_t _key_length = 16;
     size_t _value_length = 1000;
-    size_t _dbsize = 1024 * 1024 * 1024;
+    size_t _dbsize = 8UL * 1024 * 1024 * 1024;
     double _psize = 0.2;
 
     // workload generator
