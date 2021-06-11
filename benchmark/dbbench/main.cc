@@ -108,15 +108,18 @@ int main(int argc, char* argv[])
     strcpy(_wopt.name, "WARMUP");
     _wopt.type = DBBENCH_PUT;
     _wopt.workload_size = _dbsize;
+    _wopt.num_threads = 1;
     start_workload(&_wopt);
 
     strcpy(_wopt.name, "SINGLE_PUT");
     _wopt.type = DBBENCH_PUT;
     _wopt.workload_size = (size_t)(_psize * _dbsize);
+    _wopt.num_threads =  _num_threads;
     start_workload(&_wopt);
 
     strcpy(_wopt.name, "SINGLE_GET");
     _wopt.type = DBBENCH_GET;
+    _wopt.num_threads =  _num_threads;
     _wopt.workload_size = (size_t)(_psize * _dbsize);
     start_workload(&_wopt);
     return 0;
