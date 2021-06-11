@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
     int _num_threads = 8;
     size_t _key_length = 16;
     size_t _value_length = 1000;
-    size_t _dbsize = 8UL * 1024 * 1024 * 1024;
+    size_t _dbsize = 100UL * 1024 * 1024 * 1024;
     double _psize = 0.2;
 
     // workload generator
