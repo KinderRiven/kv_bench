@@ -56,7 +56,7 @@ RocksDB::RocksDB(kv_benchmark::Options& options)
     _options.max_background_compactions = options.num_backend_thread; // only one backend compaction thread
 
     wopt_ = rocksdb::WriteOptions();
-    wopt_.disableWAL = true;
+    // wopt_.disableWAL = true;
 
     ropt_ = rocksdb::ReadOptions();
 
