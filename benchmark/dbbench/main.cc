@@ -86,6 +86,8 @@ int main(int argc, char* argv[])
     kv_benchmark::Options _options;
     _options.nvm_path.assign(_pmem_path);
     _options.db_path.assign(_ssd_path);
+    _options.write_buffer_size = 1UL * 1024 * 1024 * 1024;
+    _options.num_backend_thread = 2;
     kv_benchmark::DB::Open(_options, &_db);
 
     // CREATE RESULT SAVE PATH
