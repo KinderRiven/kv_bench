@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-17 11:58:39
  * @LastEditors: Han Shukai
- * @LastEditTime: 2021-06-10 19:41:26
+ * @LastEditTime: 2021-06-11 13:17:52
  * @FilePath: /kv_bench/benchmark/go-ycsb/main.cc
  */
 
@@ -50,7 +50,8 @@ const static uint32_t kValueSize = 4096;
 #define OPT_TYPE_READ (3)
 #define OPT_TYPE_SCAN (4)
 
-const char* g_ycsb_workload[] = { "workload/workloada.load", "workload/workloada.run" };
+const char* g_ycsb_workload[] = { "workload/workloada.load", "workload/workloada.run",
+    "workload/workloadb.run", , "workload/workloadc.run" };
 
 struct ycsb_operator_t {
 public:
@@ -287,9 +288,9 @@ int main(int argc, char** argv)
 {
     DB* _db = nullptr;
     Options _options;
-    _options.write_buffer_size = 64 * 1024 * 1024;
+    _options.write_buffer_size = 2UL * 1024 * 1024 * 1024;
     _options.nvm_path = "/home/pmem0";
-    _options.db_path = "/home/hanshukai/mount/4510/db";
+    _options.db_path = "/home/hanshukai/mount/4800/db";
     DB::Open(_options, &_db);
     run_workload(g_ycsb_workload[0], _db);
     run_workload(g_ycsb_workload[1], _db);

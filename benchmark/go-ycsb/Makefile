@@ -62,7 +62,6 @@ LINK_SILK := -L$(LIB_SILK) -lrocksdb -ljemalloc -lsnappy -lgflags -lz -lbz2 -llz
 
 # SplitKV
 
-
 # SpanDB
 
 all: clean leveldb novelsm pebblesdb rocksdb matrixkv silk
