@@ -9,7 +9,8 @@ puts "DB Size" + "[" + size + "GB]";
 bs.each do |e_bs|
     puts e_bs
     db.each do |e_db|
-        run = e_db + "_tester";
+        run = "./" + e_db + "_tester";
+        system run;
         puts run
     end
 end
