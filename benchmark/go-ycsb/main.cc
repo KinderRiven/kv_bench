@@ -1,7 +1,7 @@
 /*
  * @Date: 2021-04-17 11:58:39
  * @LastEditors: Han Shukai
- * @LastEditTime: 2021-06-11 13:17:52
+ * @LastEditTime: 2021-06-14 18:17:55
  * @FilePath: /kv_bench/benchmark/go-ycsb/main.cc
  */
 
@@ -51,7 +51,7 @@ const static uint32_t kValueSize = 4096;
 #define OPT_TYPE_SCAN (4)
 
 const char* g_ycsb_workload[] = { "workload/workloada.load", "workload/workloada.run",
-    "workload/workloadb.run", , "workload/workloadc.run" };
+    "workload/workloadb.run", "workload/workloadc.run" };
 
 struct ycsb_operator_t {
 public:
