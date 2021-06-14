@@ -1,7 +1,10 @@
 puts "This is a Ruby Script!";
 
+size = 100 * 1024 * 1024 * 1024;
 bs = [64, 256, 1024, 4096, 16384]
 db = ["leveldb", "rocksdb", "matrixkv", "pebblesdb"]
+
+puts size;
 
 bs.each do |e_bs|
     puts e_bs
