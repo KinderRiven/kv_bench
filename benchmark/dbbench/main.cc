@@ -86,7 +86,7 @@ int main(int argc, char* argv[])
     kv_benchmark::Options _options;
     _options.nvm_path.assign(_pmem_path);
     _options.db_path.assign(_ssd_path);
-    _options.write_buffer_size = 8UL * 1024 * 1024 * 1024;
+    _options.write_buffer_size = 1UL * 1024 * 1024 * 1024;
     _options.num_backend_thread = 2;
     kv_benchmark::DB::Open(_options, &_db);
 
@@ -105,13 +105,11 @@ int main(int argc, char* argv[])
     _wopt.db = _db;
     _wopt.result_path.assign(_result_path);
 
-#if 0
     strcpy(_wopt.name, "WARMUP");
     _wopt.type = DBBENCH_PUT;
     _wopt.workload_size = _dbsize;
     _wopt.num_threads = 1;
     start_workload(&_wopt);
-#endif
 
     strcpy(_wopt.name, "SINGLE_PUT");
     _wopt.type = DBBENCH_PUT;
