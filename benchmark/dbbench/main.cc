@@ -54,8 +54,8 @@ int main(int argc, char* argv[])
     int _num_threads = 8;
     size_t _key_length = 16;
     size_t _value_length = 1024;
-    size_t _dbsize = 100UL * 1024 * 1024 * 1024;
-    double _psize = 0.2;
+    size_t _dbsize = 20UL * 1024 * 1024 * 1024;
+    double _psize = 1;
 
     // workload generator
     for (int i = 0; i < argc; i++) {
@@ -86,7 +86,7 @@ int main(int argc, char* argv[])
     kv_benchmark::Options _options;
     _options.nvm_path.assign(_pmem_path);
     _options.db_path.assign(_ssd_path);
-    _options.write_buffer_size = 1UL * 1024 * 1024 * 1024;
+    _options.write_buffer_size = 8UL * 1024 * 1024 * 1024;
     _options.num_backend_thread = 2;
     kv_benchmark::DB::Open(_options, &_db);
 
@@ -105,21 +105,23 @@ int main(int argc, char* argv[])
     _wopt.db = _db;
     _wopt.result_path.assign(_result_path);
 
+#if 0
     strcpy(_wopt.name, "WARMUP");
     _wopt.type = DBBENCH_PUT;
     _wopt.workload_size = _dbsize;
     _wopt.num_threads = 1;
     start_workload(&_wopt);
+#endif
 
     strcpy(_wopt.name, "SINGLE_PUT");
     _wopt.type = DBBENCH_PUT;
     _wopt.workload_size = (size_t)(_psize * _dbsize);
-    _wopt.num_threads =  _num_threads;
+    _wopt.num_threads = _num_threads;
     start_workload(&_wopt);
 
     strcpy(_wopt.name, "SINGLE_GET");
     _wopt.type = DBBENCH_GET;
-    _wopt.num_threads =  _num_threads;
+    _wopt.num_threads = _num_threads;
     _wopt.workload_size = (size_t)(_psize * _dbsize);
     start_workload(&_wopt);
     return 0;
