@@ -26,7 +26,7 @@ RocksDB::RocksDB(kv_benchmark::Options& options)
     // IO handle
     // direct read/write
     _options.use_direct_reads = true;
-    _options.use_direct_io_for_flush_and_compaction = false;
+    _options.use_direct_io_for_flush_and_compaction = true;
     _options.wal_bytes_per_sync = false; // foce sync log
     _options.allow_concurrent_memtable_write = true;
 
