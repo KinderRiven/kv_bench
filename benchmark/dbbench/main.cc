@@ -105,11 +105,13 @@ int main(int argc, char* argv[])
     _wopt.db = _db;
     _wopt.result_path.assign(_result_path);
 
+#if 0
     strcpy(_wopt.name, "WARMUP");
     _wopt.type = DBBENCH_PUT;
     _wopt.workload_size = _dbsize;
     _wopt.num_threads = 1;
     start_workload(&_wopt);
+#endif
 
     strcpy(_wopt.name, "SINGLE_PUT");
     _wopt.type = DBBENCH_PUT;
