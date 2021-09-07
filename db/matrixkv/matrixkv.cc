@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-03-18 11:55:19
- * @LastEditTime: 2021-06-09 18:34:11
+ * @LastEditTime: 2021-09-07 16:15:06
  * @LastEditors: Han Shukai
  * @Description: In User Settings Edit
  * @FilePath: /kv_bench/db/matrixkv/matrixkv.cc
@@ -22,13 +22,13 @@ MatrixKV::MatrixKV(kv_benchmark::Options& options)
     rocksdb::NvmSetup* _nvm_opt = new rocksdb::NvmSetup();
     _nvm_opt->pmem_path = "/home/pmem0";
 
-    // _nvm_opt->Level0_column_compaction_trigger_size = 2UL * 1024 * 1024 * 1024;
-    // _nvm_opt->Level0_column_compaction_slowdown_size = 2UL * 1024 * 1024 * 1024 + 512UL * 1024 * 1024;
-    // _nvm_opt->Level0_column_compaction_stop_size = 3UL * 1024 * 1024 * 1024;
+    _nvm_opt->Level0_column_compaction_trigger_size = 2UL * 1024 * 1024 * 1024;
+    _nvm_opt->Level0_column_compaction_slowdown_size = 2UL * 1024 * 1024 * 1024 + 512UL * 1024 * 1024;
+    _nvm_opt->Level0_column_compaction_stop_size = 3UL * 1024 * 1024 * 1024;
     //column compaction时没有L1文件交集时,至少选择L0数据量进行column compaction的文件个数
-    // _nvm_opt->Column_compaction_no_L1_select_L0 = 4;
+    _nvm_opt->Column_compaction_no_L1_select_L0 = 4;
     //column compaction时有L1文件交集时,至少选择L0数据量进行column compaction的文件个数
-    // _nvm_opt->Column_compaction_have_L1_select_L0 = 2;
+    _nvm_opt->Column_compaction_have_L1_select_L0 = 2;
 
     _nvm_opt->use_nvm_module = true;
     _options.nvm_setup.reset(_nvm_opt);
